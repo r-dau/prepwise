@@ -9,6 +9,7 @@ import { HiLightBulb } from "react-icons/hi";
 import { LuSquareCheckBig } from "react-icons/lu";
 
 import MatchScoreCard from "@/components/MatchScoreCard";
+import AnalysisSkeleton from "@/components/AnalysisSkeleton";
 
 interface AnalysisResult {
   matchScore: number;
@@ -34,6 +35,12 @@ export default function Home() {
 
     setLoading(true);
     setError(null);
+
+    setTimeout(() => {
+      document
+        .getElementById("analysis")
+        ?.scrollIntoView({ behavior: "smooth" });
+    }, 500);
 
     try {
       const response = await fetch("/api/analyze", {
@@ -206,8 +213,11 @@ export default function Home() {
       </main>
 
       {/* Results Section */}
+      {loading && <AnalysisSkeleton />}
+
+      {/* Results Section */}
       {result && (
-        <section className="bg-[#F5F3FF] w-full">
+        <section id="analysis" className="bg-[#F5F3FF] w-full">
           <div className="w-full mx-auto py-8 sm:py-12 lg:py-16 px-8 sm:px-6 lg:px-8 max-w-[1200px] flex flex-col items-center">
             <h2
               className="mb-6 sm:mb-8 w-full"
