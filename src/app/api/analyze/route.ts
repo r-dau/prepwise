@@ -4,7 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 const client = new Anthropic();
 
 export async function POST(request: NextRequest) {
-  const { cv, jobDescription } = await request.json();
+  const { cv, jobDescription, password } = await request.json();
+
+  if (password !== process.env.DEMO_PASSWORD) {
+    return NextResponse.json({ error: "Falsches Passwort." }, { status: 401 });
+  }
 
   if (!cv || !jobDescription) {
     return NextResponse.json(
@@ -15,7 +19,7 @@ export async function POST(request: NextRequest) {
 
   const message = await client.messages.create({
     model: "claude-sonnet-4-6",
-    max_tokens: 1024,
+    max_tokens: 4096,
     messages: [
       {
         role: "user",
@@ -31,12 +35,19 @@ Antworte NUR als JSON mit exakt dieser Struktur, ohne Markdown oder Erklärungen
 {
   "matchScore": 85,
   "matchSummary": "Kurze Zusammenfassung der Übereinstimmung",
-  "strengths": ["Stärke 1", "Stärke 2", "Stärke 3"],
-  "skillGaps": ["Gap 1", "Gap 2"],
+  "strengths": [
+    { "label": "React", "detail": "Detaillierte Beschreibung der Stärke..." }
+  ],
+  "skillGaps": [
+    { "label": "AWS", "detail": "AWS-Kenntnisse fehlen vollständig..." }
+  ],
+  "preparationTips": [
+    { "label": "AWS Grundlagen", "detail": "Mindestens AWS-Kernservices wie S3, EC2..." }
+  ],
   "interviewQuestions": [
-    { "question": "Frage 1", "category": "Technical" },
-    { "question": "Frage 2", "category": "Behavioural" },
-    { "question": "Frage 3", "category": "Skill Gap" }
+    { "question": "Frage 1", "category": "Technical", "tip": "Kurzer Hinweis wie man diese Frage am besten beantwortet" },
+    { "question": "Frage 2", "category": "Behavioural", "tip": "Kurzer Hinweis wie man diese Frage am besten beantwortet" },
+    { "question": "Frage 3", "category": "Skill Gap", "tip": "Kurzer Hinweis wie man diese Frage am besten beantwortet" }
   ]
 }`,
       },

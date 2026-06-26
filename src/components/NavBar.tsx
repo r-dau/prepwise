@@ -23,7 +23,7 @@ export default function NavBar() {
               className="font-bold text-sm sm:text-base hidden sm:inline"
               style={{ color: "#111827" }}
             >
-              PrepWise
+              PrepWise | Portfolio Projekt
             </span>
           </div>
 
