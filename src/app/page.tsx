@@ -5,18 +5,21 @@ import { useState } from "react";
 import { LuUpload } from "react-icons/lu";
 import { IoMdLock } from "react-icons/io";
 import { GiNestedHexagons } from "react-icons/gi";
-import { HiLightBulb } from "react-icons/hi";
-import { LuSquareCheckBig } from "react-icons/lu";
+import { BsShield } from "react-icons/bs";
 
 import MatchScoreCard from "@/components/MatchScoreCard";
+import SkillGapCard from "@/components/SkillGapCard";
+import PreparationTipsCard from "@/components/PreparationTipsCard";
 import AnalysisSkeleton from "@/components/AnalysisSkeleton";
+import InterviewQuestionsCard from "@/components/InterviewQuestionsCard";
 
 interface AnalysisResult {
   matchScore: number;
   matchSummary: string;
-  strengths: string[];
-  skillGaps: string[];
-  interviewQuestions: { question: string; category: string }[];
+  strengths: { label: string; detail: string }[];
+  skillGaps: { label: string; detail: string }[];
+  preparationTips: { label: string; detail: string }[];
+  interviewQuestions: { question: string; category: string; tip: string }[];
 }
 
 export default function Home() {
@@ -25,6 +28,7 @@ export default function Home() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [password, setPassword] = useState("");
 
   const handleAnalyze = async () => {
     if (!cv.trim() || !jobDescription.trim()) {
@@ -48,7 +52,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cv, jobDescription }),
+        body: JSON.stringify({ cv, jobDescription, password }),
       });
 
       if (!response.ok) {
@@ -82,6 +86,69 @@ export default function Home() {
             Analysiere deinen Lebenslauf und eine Stellenanzeige und erhalte
             personalisiertes Feedback, Skill Gaps und Interviewfragen.
           </p>
+        </div>
+
+        {/* Password Section */}
+        <div
+          className="flex w-full items-center justify-between bg-white rounded-lg border-3 border-[#E5E7EB] text-gray-700 gap-4 p-4 mb-6"
+          role="alert"
+        >
+          <>
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#E5E7EB]">
+              <IoMdLock color="#6A7282" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <h3 className="font-bold">Zugang</h3>
+              <p>
+                Diese Demo ist passwortgeschützt, um Missbrauch und unnötige
+                API-Kosten zu vermeiden. Das Passwort wird nur zur Freigabe der
+                Analyse verwendet.
+              </p>
+            </div>
+          </>
+          <div className="flex gap-2 ml-auto">
+            <input
+              type="password"
+              placeholder="Demo-Passwort eingeben"
+              className="flex p-2 min-w-60 rounded-lg border-2 border-[#E5E7EB] text-sm focus:outline-none focus:ring-2"
+              style={{
+                borderColor: "#E5E7EB",
+                backgroundColor: "#FFFFFF",
+                color: "#111827",
+              }}
+              value={password ?? ""}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              className="px-2 py-2 rounded-lg text-white font-semibold transition-all hover:opacity-90"
+              style={{
+                backgroundColor: "#7C3AED",
+                fontSize: "14px",
+                fontWeight: 600,
+              }}
+            >
+              Zugang bestätigen
+            </button>
+          </div>
+        </div>
+
+        {/* Alert Section */}
+        <div
+          className="flex bg-violet-50 rounded-lg border-3 border-violet-200 text-gray-700 gap-4 p-4 mb-6"
+          role="alert"
+        >
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-purple-100">
+            <BsShield size={24} color="#7C3AED" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h3 className="font-bold">Datenschutzhinweis</h3>
+            <p>
+              Die eingegebenen Inhalte werden ausschließlich für die Analyse
+              verwendet und nicht dauerhaft gespeichert. Bitte verwende keine
+              vertraulichen Informationen oder personenbezogenen Daten, die du
+              nicht mit einem KI-Dienst teilen möchtest.
+            </p>
+          </div>
         </div>
 
         {/* Input Section */}
@@ -242,163 +309,17 @@ export default function Home() {
               <MatchScoreCard score={result.matchScore} />
 
               {/* Skill Gap Card */}
-              <div
-                className="rounded-lg p-6 border max-w-none w-full md:col-span-2"
-                style={{
-                  backgroundColor: "#FFFFFF",
-                  borderColor: "#E5E7EB",
-                }}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <div
-                    className="flex rounded-full items-center justify-center bg-purple-100 mb-6"
-                    style={{ width: "42px", height: "42px" }}
-                  >
-                    <LuSquareCheckBig size={18} color="#7C3AED" />
-                  </div>
-                  <h3
-                    className="mb-6 font-semibold text-center"
-                    style={{ color: "#111827", fontSize: "18px" }}
-                  >
-                    Skill Gap Analyse
-                  </h3>
-                </div>
-                <p
-                  style={{ color: "#6B7280", fontSize: "14px" }}
-                  className="text-center mb-4"
-                >
-                  Platzhalter für die Analyse fehlender Kompetenzen und
-                  empfohlener Entwicklungspfade.
-                </p>
-                <div className="p-4 bg-white rounded-lg text-center">
-                  <span
-                    style={{
-                      color: "#F59E0B",
-                      fontSize: "24px",
-                      fontWeight: 700,
-                    }}
-                  >
-                    🟡 3 Gaps
-                  </span>
-                </div>
-              </div>
+              <SkillGapCard
+                skillGaps={result.skillGaps}
+                strengths={result.strengths}
+              />
 
               {/* Tips Card */}
-              <div
-                className="rounded-lg p-6 border max-w-[450px] mx-auto w-full md:col-span-1"
-                style={{
-                  backgroundColor: "#FFFFFF",
-                  borderColor: "#E5E7EB",
-                }}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <div
-                    className="flex rounded-full items-center justify-center bg-purple-100 mb-6"
-                    style={{ width: "48px", height: "42px" }}
-                  >
-                    <HiLightBulb size={18} color="#7C3AED" />
-                  </div>
-                  <h3
-                    className="mb-6 font-semibold text-center"
-                    style={{ color: "#111827", fontSize: "18px" }}
-                  >
-                    Vorbereitungstipps
-                  </h3>
-                </div>
-                <p
-                  style={{ color: "#6B7280", fontSize: "14px" }}
-                  className="text-center mb-4"
-                >
-                  Platzhalter für passende Tipps zur Vorbereitung auf das
-                  Vorstellungsgespräch.
-                </p>
-                <div className="p-4 bg-white rounded-lg text-center">
-                  <span
-                    style={{
-                      color: "#7C3AED",
-                      fontSize: "18px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    5 Tipps verfügbar
-                  </span>
-                </div>
-              </div>
+              <PreparationTipsCard tips={result.preparationTips} />
             </div>
 
             {/* Interview Questions */}
-            <div
-              className="rounded-lg p-6 sm:p-8 border w-full max-w-[1200px]"
-              style={{
-                backgroundColor: "#FAFAFA",
-                borderColor: "#E5E7EB",
-              }}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <div
-                  className="flex rounded-full items-center justify-center bg-purple-100 mb-6"
-                  style={{ width: "48px", height: "48px" }}
-                >
-                  <span className="text-purple-800 text-lg font-bold py-2 px-4 rounded-full">
-                    MI
-                  </span>
-                </div>
-                <h2
-                  className="mb-6"
-                  style={{
-                    color: "#111827",
-                    fontSize: "24px",
-                    fontWeight: 600,
-                  }}
-                >
-                  Mögliche Interviewfragen
-                </h2>
-              </div>
-              <ul className="space-y-4">
-                <li
-                  className="p-4 rounded-lg"
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    color: "#6B7280",
-                    fontSize: "16px",
-                  }}
-                >
-                  <span style={{ color: "#7C3AED", fontWeight: 600 }}>•</span>
-                  <span className="ml-3">
-                    Beschreibe eine Situation, in der du ein Problem erfolgreich
-                    gelöst hast.
-                  </span>
-                </li>
-                <li
-                  className="p-4 rounded-lg"
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    color: "#6B7280",
-                    fontSize: "16px",
-                  }}
-                >
-                  <span style={{ color: "#7C3AED", fontWeight: 600 }}>•</span>
-                  <span className="ml-3">
-                    Wie gehst du mit unerwarteten Herausforderungen im
-                    Projektverlauf um?
-                  </span>
-                </li>
-                <li
-                  className="p-4 rounded-lg"
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    color: "#6B7280",
-                    fontSize: "16px",
-                  }}
-                >
-                  <span style={{ color: "#7C3AED", fontWeight: 600 }}>•</span>
-                  <span className="ml-3">
-                    Welche Technologien oder Methoden möchtest du noch
-                    vertiefen?
-                  </span>
-                </li>
-              </ul>
-            </div>
+            <InterviewQuestionsCard questions={result.interviewQuestions} />
           </div>
         </section>
       )}
