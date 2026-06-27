@@ -6,6 +6,7 @@ import { LuUpload } from "react-icons/lu";
 import { IoMdLock } from "react-icons/io";
 import { GiNestedHexagons } from "react-icons/gi";
 import { BsShield } from "react-icons/bs";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 import MatchScoreCard from "@/components/MatchScoreCard";
 import SkillGapCard from "@/components/SkillGapCard";
@@ -29,6 +30,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState("");
+  const [passwordValid, setPasswordValid] = useState<boolean | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleAnalyze = async () => {
     if (!cv.trim() || !jobDescription.trim()) {
@@ -68,6 +71,24 @@ export default function Home() {
     }
   };
 
+  const handlePasswordChange = async (value: string) => {
+    setPassword(value);
+
+    if (value.length < 3) {
+      setPasswordValid(null);
+      return;
+    }
+
+    const response = await fetch("/api/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: value }),
+    });
+
+    const { isValid } = await response.json();
+    setPasswordValid(isValid);
+  };
+
   return (
     <div className="w-full bg-[#FAFAFA] min-h-screen flex flex-col items-center justify-center">
       <main className="w-full mx-auto py-8 sm:pt-8 lg:pt-12 sm:pb-4 lg:pb-4 px-6 sm:px-6 lg:px-8 flex flex-col items-center justify-center max-w-[1200px]">
@@ -86,50 +107,6 @@ export default function Home() {
             Analysiere deinen Lebenslauf und eine Stellenanzeige und erhalte
             personalisiertes Feedback, Skill Gaps und Interviewfragen.
           </p>
-        </div>
-
-        {/* Password Section */}
-        <div
-          className="flex w-full items-center justify-between bg-white rounded-lg border-3 border-[#E5E7EB] text-gray-700 gap-4 p-4 mb-6"
-          role="alert"
-        >
-          <>
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#E5E7EB]">
-              <IoMdLock color="#6A7282" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <h3 className="font-bold">Zugang</h3>
-              <p>
-                Diese Demo ist passwortgeschützt, um Missbrauch und unnötige
-                API-Kosten zu vermeiden. Das Passwort wird nur zur Freigabe der
-                Analyse verwendet.
-              </p>
-            </div>
-          </>
-          <div className="flex gap-2 ml-auto">
-            <input
-              type="password"
-              placeholder="Demo-Passwort eingeben"
-              className="flex p-2 min-w-60 rounded-lg border-2 border-[#E5E7EB] text-sm focus:outline-none focus:ring-2"
-              style={{
-                borderColor: "#E5E7EB",
-                backgroundColor: "#FFFFFF",
-                color: "#111827",
-              }}
-              value={password ?? ""}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              className="px-2 py-2 rounded-lg text-white font-semibold transition-all hover:opacity-90"
-              style={{
-                backgroundColor: "#7C3AED",
-                fontSize: "14px",
-                fontWeight: 600,
-              }}
-            >
-              Zugang bestätigen
-            </button>
-          </div>
         </div>
 
         {/* Alert Section */}
@@ -244,37 +221,68 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Error Message */}
-          {error && (
-            <p
-              className="text-center mb-4"
-              style={{ color: "#EF4444", fontSize: "14px" }}
-            >
-              {error}
-            </p>
-          )}
+          <div className="flex flex-col gap-2 w-fit mx-auto">
+            <label className="text-sm font-medium" style={{ color: "#111827" }}>
+              Demo-Passwort
+            </label>
 
-          <div className="flex flex-col justify-center gap-4 sm:gap-6 items-center">
-            <button
-              onClick={handleAnalyze}
-              disabled={loading}
-              className="flex items-center gap-2 w-full sm:w-auto px-20 py-3 rounded-lg text-white font-semibold transition-all hover:opacity-90"
-              style={{
-                backgroundColor: "#7C3AED",
-                fontSize: "18px",
-                fontWeight: 600,
-              }}
-            >
-              <GiNestedHexagons size={24} />
-              {loading ? "Analysiere..." : "Analyse starten"}
-            </button>
-            <div className="flex items-center gap-2 text-center">
-              <IoMdLock color="#6A7282" />
-              <p className="text-sm text-gray-500">
-                Deine Daten werden nicht gespeichert und nur zur Analyse
-                verwendet.
-              </p>
+            {/* Input mit Eye-Icon */}
+            <div className="flex items-center gap-2">
+              <div className="relative w-72">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Passwort eingeben..."
+                  className="w-full p-3 pr-10 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-purple-300"
+                  style={{
+                    borderColor:
+                      passwordValid === false
+                        ? "#EF4444"
+                        : passwordValid === true
+                          ? "#22C55E"
+                          : "#E5E7EB",
+                    backgroundColor: "#FFFFFF",
+                    color: "#111827",
+                  }}
+                  value={password ?? ""}
+                  onChange={(e) => handlePasswordChange(e.target.value)}
+                />
+                {/* Eye Icon */}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2"
+                  style={{ color: "#6B7280" }}
+                >
+                  {showPassword ? <IoEyeOff size={18} /> : <IoEye size={18} />}
+                </button>
+              </div>
+
+              <button
+                onClick={handleAnalyze}
+                disabled={loading || passwordValid !== true}
+                className="flex items-center gap-2 px-6 py-3 rounded-lg text-white font-semibold transition-all hover:opacity-90 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: "#7C3AED",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                }}
+              >
+                <GiNestedHexagons size={20} />
+                {loading ? "Analysiere..." : "Analyse starten"}
+              </button>
             </div>
+
+            {/* Live Feedback */}
+            {passwordValid === false && (
+              <p style={{ color: "#EF4444", fontSize: "13px" }}>
+                ❌ Falsches Passwort
+              </p>
+            )}
+            {passwordValid === true && (
+              <p style={{ color: "#22C55E", fontSize: "13px" }}>
+                ✅ Passwort korrekt
+              </p>
+            )}
           </div>
         </div>
       </main>
