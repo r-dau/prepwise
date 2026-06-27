@@ -23,7 +23,7 @@ export default function PasswordInput({
   onAnalyze,
 }: PasswordInputProps) {
   return (
-    <div className="flex flex-col gap-2 w-fit mx-auto">
+    <div className="flex flex-col gap-2 w-full max-w-[550px] mx-auto sm:w-fit">
       <label
         className="text-sm font-medium"
         style={{ color: "var(--color-text-primary)" }}
@@ -31,8 +31,9 @@ export default function PasswordInput({
         Demo-Passwort
       </label>
 
-      <div className="flex items-center gap-2">
-        <div className="relative w-72">
+      {/* Input + Button: untereinander auf Mobile, nebeneinander auf Desktop */}
+      <div className="flex flex-col sm:flex-row items-stretch gap-2">
+        <div className="relative w-full sm:w-72">
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Passwort eingeben..."
@@ -63,7 +64,7 @@ export default function PasswordInput({
         <button
           onClick={onAnalyze}
           disabled={loading || passwordValid !== true}
-          className="flex items-center gap-2 px-6 py-3 rounded-lg text-white font-semibold transition-all hover:opacity-90 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-lg text-white font-semibold transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             backgroundColor: "var(--color-primary)",
             fontSize: "16px",
@@ -75,6 +76,7 @@ export default function PasswordInput({
         </button>
       </div>
 
+      {/* Live Feedback */}
       {passwordValid === false && (
         <p style={{ color: "var(--color-error)", fontSize: "13px" }}>
           ❌ Falsches Passwort

@@ -53,24 +53,37 @@ export default function HistoryList() {
       {entries.map((entry) => (
         <div
           key={entry.id}
-          className="rounded-lg p-6 border flex items-center justify-between gap-4 cursor-pointer hover:shadow-md transition-all"
-          style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E7EB" }}
+          className="rounded-lg p-4 sm:p-6 border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 cursor-pointer hover:shadow-md transition-all"
+          style={{
+            backgroundColor: "var(--color-background)",
+            borderColor: "var(--color-border)",
+          }}
           onClick={() => router.push(`/history/${entry.id}`)}
         >
-          <div className="flex items-center gap-4">
+          {/* Top/Left: Icon + Info */}
+          <div className="flex items-center gap-3">
             <div
-              className="flex rounded-full items-center justify-center bg-purple-100"
-              style={{ width: "48px", height: "48px", flexShrink: 0 }}
+              className="flex rounded-full items-center justify-center bg-purple-100 flex-shrink-0"
+              style={{ width: "40px", height: "40px" }}
             >
-              <TbTargetArrow color="#7C3AED" size={24} />
+              <TbTargetArrow color="#7C3AED" size={20} />
             </div>
             <div>
               <p
-                style={{ color: "#111827", fontSize: "16px", fontWeight: 600 }}
+                style={{
+                  color: "var(--color-text-primary)",
+                  fontSize: "15px",
+                  fontWeight: 600,
+                }}
               >
                 {entry.jobTitle}
               </p>
-              <p style={{ color: "#6B7280", fontSize: "14px" }}>
+              <p
+                style={{
+                  color: "var(--color-text-secondary)",
+                  fontSize: "13px",
+                }}
+              >
                 {new Date(entry.date).toLocaleDateString("de-DE", {
                   day: "2-digit",
                   month: "long",
@@ -80,18 +93,24 @@ export default function HistoryList() {
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
-            <div className="text-right">
+          {/* Bottom/Right: Score + Delete */}
+          <div className="flex items-center justify-between sm:justify-end sm:gap-6 pl-1 sm:pl-0">
+            <div className="flex items-center gap-2 sm:text-right">
               <p
                 style={{
                   color: getColor(entry.matchScore),
-                  fontSize: "24px",
+                  fontSize: "22px",
                   fontWeight: 700,
                 }}
               >
                 {entry.matchScore}%
               </p>
-              <p style={{ color: "#6B7280", fontSize: "12px" }}>
+              <p
+                style={{
+                  color: "var(--color-text-secondary)",
+                  fontSize: "13px",
+                }}
+              >
                 {getLabel(entry.matchScore)}
               </p>
             </div>
@@ -101,7 +120,7 @@ export default function HistoryList() {
                 handleDelete(entry.id);
               }}
               className="p-2 rounded-lg hover:bg-red-50 transition-all"
-              style={{ color: "#EF4444" }}
+              style={{ color: "var(--color-error)" }}
             >
               <FiTrash2 size={18} />
             </button>

@@ -5,11 +5,13 @@ export default function HeroSection() {
         className="mb-4 sm:mb-6"
         style={{
           color: "var(--color-text-primary)",
-          fontSize: "32px",
+          fontSize: "clamp(22px, 5vw, 32px)",
           fontWeight: 600,
+          lineHeight: 1.3,
         }}
       >
-        Prepare smarter. Interview better.
+        Prepare smarter.{" "}
+        <span className="block sm:inline">Interview better.</span>
       </h2>
       <p
         className="mx-auto max-w-lg"
