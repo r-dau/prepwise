@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { saveToHistory } from "@/lib/history";
 
 import { LuUpload } from "react-icons/lu";
 import { IoMdLock } from "react-icons/io";
@@ -15,6 +16,7 @@ import AnalysisSkeleton from "@/components/AnalysisSkeleton";
 import InterviewQuestionsCard from "@/components/InterviewQuestionsCard";
 
 interface AnalysisResult {
+  jobTitle: string;
   matchScore: number;
   matchSummary: string;
   strengths: { label: string; detail: string }[];
@@ -63,6 +65,14 @@ export default function Home() {
       }
 
       const data: AnalysisResult = await response.json();
+
+      // Jobtitel prüfen
+      if (!data.jobTitle || data.jobTitle.trim() === "") {
+        const manualTitle = prompt("Kein Jobtitel gefunden. Bitte eingeben:");
+        data.jobTitle = manualTitle || "Unbekannte Stelle";
+      }
+
+      saveToHistory(data.jobTitle, data);
       setResult(data);
     } catch (err) {
       setError((err as Error).message);
