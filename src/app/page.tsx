@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { saveToHistory } from "@/lib/history";
+import { extractTextFromFile } from "@/lib/fileParser";
 
 import { LuUpload } from "react-icons/lu";
-import { IoMdLock } from "react-icons/io";
 import { GiNestedHexagons } from "react-icons/gi";
 import { BsShield } from "react-icons/bs";
 import { IoEye, IoEyeOff } from "react-icons/io5";
@@ -34,9 +34,11 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [passwordValid, setPasswordValid] = useState<boolean | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [cvFileName, setCvFileName] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   const handleAnalyze = async () => {
-    if (!cv.trim() || !jobDescription.trim()) {
+    if (!String(cv).trim() || !String(jobDescription).trim()) {
       setError("Bitte fülle beide Felder aus, um die Analyse zu starten.");
       setLoading(false);
       return;
@@ -97,6 +99,20 @@ export default function Home() {
 
     const { isValid } = await response.json();
     setPasswordValid(isValid);
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploadError(null);
+      const text = await extractTextFromFile(file);
+      setCv(String(text)); // Sicherstellen dass es ein String ist
+      setCvFileName(file.name);
+    } catch (err) {
+      setUploadError((err as Error).message);
+    }
   };
 
   return (
@@ -181,11 +197,30 @@ export default function Home() {
                 value={cv}
                 onChange={(e) => setCv(e.target.value)}
               ></textarea>
-              <div className="flex items-center gap-2 mt-4 ml-2 cursor-pointer">
-                <LuUpload color="#7C3AED" />
-                <p className="text-xs" style={{ color: "#7C3AED" }}>
-                  oder Datei hochladen
-                </p>
+              {/* Upload Button */}
+              <div className="mt-4 ml-2">
+                <label className="flex items-center gap-2 cursor-pointer w-fit">
+                  <LuUpload color="#7C3AED" />
+                  <p className="text-xs" style={{ color: "#7C3AED" }}>
+                    oder Datei hochladen
+                  </p>
+                  <input
+                    type="file"
+                    accept=".pdf,.docx"
+                    className="hidden"
+                    onChange={handleFileUpload}
+                  />
+                </label>
+                {cvFileName && (
+                  <p className="text-xs mt-1 ml-6" style={{ color: "#22C55E" }}>
+                    ✅ {cvFileName} geladen
+                  </p>
+                )}
+                {uploadError && (
+                  <p className="text-xs mt-1 ml-6" style={{ color: "#EF4444" }}>
+                    ❌ {uploadError}
+                  </p>
+                )}
               </div>
             </div>
             <div
