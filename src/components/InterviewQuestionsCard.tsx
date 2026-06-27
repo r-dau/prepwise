@@ -27,8 +27,12 @@ function QuestionItem({
 
   return (
     <li
-      className="p-4 rounded-lg flex items-start gap-4"
-      style={{ backgroundColor: "#FFFFFF", border: "1px solid #E5E7EB" }}
+      key={index}
+      className="p-4 rounded-lg flex flex-col sm:flex-row items-start gap-3"
+      style={{
+        backgroundColor: "var(--color-background)",
+        border: "1px solid var(--color-border)",
+      }}
     >
       {/* Number Badge */}
       <div
@@ -44,30 +48,33 @@ function QuestionItem({
       </div>
 
       {/* Question + Tip */}
-      <div className="flex-1">
-        <p style={{ color: "#111827", fontSize: "15px" }}>
+      <div className="flex flex-col gap-2">
+        <p style={{ color: "var(--color-text-primary)", fontSize: "15px" }}>
           {question.question}
         </p>
         {open && (
-          <p className="mt-2 text-sm" style={{ color: "#6B7280" }}>
+          <p
+            className="text-sm"
+            style={{ color: "var(--color-text-secondary)" }}
+          >
             💡 {question.tip}
           </p>
         )}
+        <button
+          onClick={() => setOpen(!open)}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-all w-fit"
+          style={{
+            border: "1px solid var(--color-border)",
+            color: "var(--color-text-primary)",
+            backgroundColor: open
+              ? "var(--color-background-light)"
+              : "var(--color-background)",
+          }}
+        >
+          {open ? "Weniger" : "Mehr anzeigen"}
+          {open ? <IoChevronUp size={14} /> : <IoChevronDown size={14} />}
+        </button>
       </div>
-
-      {/* Mehr anzeigen Button */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
-        style={{
-          border: "1px solid #E5E7EB",
-          color: "#111827",
-          backgroundColor: open ? "#F5F3FF" : "#FFFFFF",
-        }}
-      >
-        {open ? "Weniger" : "Mehr anzeigen"}
-        {open ? <IoChevronUp size={14} /> : <IoChevronDown size={14} />}
-      </button>
     </li>
   );
 }
@@ -85,14 +92,21 @@ export default function InterviewQuestionsCard({
       style={{ backgroundColor: "#FAFAFA", borderColor: "#E5E7EB" }}
     >
       {/* Header */}
-      <div className="flex items-center gap-2 mb-6">
+      <div className="flex items-start gap-3 mb-6">
         <div
-          className="flex rounded-full items-center justify-center bg-purple-100"
-          style={{ width: "48px", height: "48px" }}
+          className="flex rounded-full items-center justify-center bg-purple-100 flex-shrink-0 mt-1"
+          style={{ width: "40px", height: "40px" }}
         >
-          <BsChatLeftText size={18} color="#7C3AED" />
+          <BsChatLeftText size={16} color="#7C3AED" />
         </div>
-        <h2 style={{ color: "#111827", fontSize: "24px", fontWeight: 600 }}>
+        <h2
+          style={{
+            color: "var(--color-text-primary)",
+            fontSize: "22px",
+            fontWeight: 600,
+            lineHeight: 1.3,
+          }}
+        >
           Mögliche Interviewfragen
         </h2>
       </div>

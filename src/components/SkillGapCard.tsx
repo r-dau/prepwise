@@ -41,7 +41,7 @@ export default function SkillGapCard({
         </h3>
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Strengths */}
         <div className="bg-[#FAFAFA] border border-[#E5E7EB] p-4 rounded-lg">
           <p
