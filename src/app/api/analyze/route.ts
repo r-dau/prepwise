@@ -33,6 +33,7 @@ ${jobDescription}
 
 Antworte NUR als JSON mit exakt dieser Struktur, ohne Markdown oder Erklärungen:
 {
+  "jobTitle": "Extrahierter Jobtitel aus der Stellenanzeige, z.B. 'Frontend Developer'",
   "matchScore": 85,
   "matchSummary": "Kurze Zusammenfassung der Übereinstimmung",
   "strengths": [
