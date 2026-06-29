@@ -123,9 +123,8 @@ export default function InterviewQuestionsCard({
         <div className="flex justify-center">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium transition-all"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-lg border border-violet-200 text-sm font-medium transition-all"
             style={{
-              border: "1px solid #E5E7EB",
               color: "#7C3AED",
               backgroundColor: "#FFFFFF",
             }}

@@ -2,6 +2,7 @@
 
 import { GiNestedHexagons } from "react-icons/gi";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { IoIosInformationCircleOutline } from "react-icons/io";
 
 interface PasswordInputProps {
   password: string;
@@ -24,12 +25,25 @@ export default function PasswordInput({
 }: PasswordInputProps) {
   return (
     <div className="flex flex-col gap-2 w-full max-w-[550px] mx-auto sm:w-fit">
-      <label
-        className="text-sm font-medium"
-        style={{ color: "var(--color-text-primary)" }}
-      >
-        Demo-Passwort
-      </label>
+      <div className="flex items-center gap-2">
+        <label
+          className="text-sm font-medium"
+          style={{ color: "var(--color-text-primary)" }}
+        >
+          Demo-Passwort
+        </label>
+        <div className="relative inline-block group">
+          {/* Info Icon */}
+          <IoIosInformationCircleOutline className="h-5 w-5 cursor-pointer text-gray-500" />
+
+          {/* Tooltip */}
+          <div className="absolute left-1/2 bottom-full z-10 mb-2 w-56 -translate-x-1/2 rounded-md bg-gray-900 px-3 py-2 text-sm text-white shadow-lg opacity-0 transition-opacity duration-200 group-hover:opacity-100 pointer-events-none">
+            Diese Demo ist passwortgeschützt, um Missbrauch und unnötige
+            API-Kosten zu vermeiden. Das Passwort wird nur zur Freigabe der
+            Analyse verwendet.
+          </div>
+        </div>
+      </div>
 
       {/* Input + Button: untereinander auf Mobile, nebeneinander auf Desktop */}
       <div className="flex flex-col sm:flex-row items-stretch gap-2">

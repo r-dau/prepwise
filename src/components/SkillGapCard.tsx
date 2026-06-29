@@ -25,7 +25,7 @@ export default function SkillGapCard({
 
   return (
     <div
-      className="rounded-lg p-6 border w-full md:col-span-2"
+      className="rounded-lg p-6 border w-full h-full md:col-span-2"
       style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E7EB" }}
     >
       {/* Header */}
@@ -41,12 +41,18 @@ export default function SkillGapCard({
         </h3>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Strengths */}
-        <div className="bg-[#FAFAFA] border border-[#E5E7EB] p-4 rounded-lg">
+        <div
+          className="rounded-lg p-3"
+          style={{
+            backgroundColor: "var(--color-background-alt)",
+            border: "1px solid var(--color-border)",
+          }}
+        >
           <p
             className="text-sm font-semibold mb-3"
-            style={{ color: "#111827" }}
+            style={{ color: "var(--color-text-primary)" }}
           >
             Deine Stärken
           </p>
@@ -57,32 +63,41 @@ export default function SkillGapCard({
                   onClick={() => toggleStrength(index)}
                   className="flex items-center justify-between w-full text-left gap-2"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
                     <FaCheckCircle
                       size={16}
                       color="#22C55E"
                       className="flex-shrink-0"
                     />
-                    <span style={{ color: "#111827", fontSize: "14px" }}>
+                    <span
+                      className="text-sm"
+                      style={{
+                        color: "var(--color-text-primary)",
+                        lineHeight: 1.4,
+                      }}
+                    >
                       {strength.label}
                     </span>
                   </div>
-                  {openStrength === index ? (
-                    <IoChevronUp
-                      size={14}
-                      color="#6B7280"
-                      className="flex-shrink-0"
-                    />
-                  ) : (
-                    <IoChevronDown
-                      size={14}
-                      color="#6B7280"
-                      className="flex-shrink-0"
-                    />
-                  )}
+                  <IoChevronDown
+                    size={14}
+                    color="#6B7280"
+                    className="flex-shrink-0"
+                    style={{
+                      transform:
+                        openStrength === index ? "rotate(180deg)" : "none",
+                      transition: "transform 0.2s",
+                    }}
+                  />
                 </button>
                 {openStrength === index && (
-                  <p className="mt-2 ml-6 text-sm" style={{ color: "#6B7280" }}>
+                  <p
+                    className="mt-2 ml-6 text-sm"
+                    style={{
+                      color: "var(--color-text-secondary)",
+                      lineHeight: 1.5,
+                    }}
+                  >
                     {strength.detail}
                   </p>
                 )}
@@ -92,10 +107,16 @@ export default function SkillGapCard({
         </div>
 
         {/* Skill Gaps */}
-        <div className="bg-[#FAFAFA] border border-[#E5E7EB] p-4 rounded-lg">
+        <div
+          className="rounded-lg p-3"
+          style={{
+            backgroundColor: "var(--color-background-alt)",
+            border: "1px solid var(--color-border)",
+          }}
+        >
           <p
             className="text-sm font-semibold mb-3"
-            style={{ color: "#111827" }}
+            style={{ color: "var(--color-text-primary)" }}
           >
             Potenzielle Skill Gaps
           </p>
@@ -106,32 +127,40 @@ export default function SkillGapCard({
                   onClick={() => toggleGap(index)}
                   className="flex items-center justify-between w-full text-left gap-2"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
                     <IoWarning
                       size={16}
                       color="#F59E0B"
                       className="flex-shrink-0"
                     />
-                    <span style={{ color: "#111827", fontSize: "14px" }}>
+                    <span
+                      className="text-sm"
+                      style={{
+                        color: "var(--color-text-primary)",
+                        lineHeight: 1.4,
+                      }}
+                    >
                       {gap.label}
                     </span>
                   </div>
-                  {openGap === index ? (
-                    <IoChevronUp
-                      size={14}
-                      color="#6B7280"
-                      className="flex-shrink-0"
-                    />
-                  ) : (
-                    <IoChevronDown
-                      size={14}
-                      color="#6B7280"
-                      className="flex-shrink-0"
-                    />
-                  )}
+                  <IoChevronDown
+                    size={14}
+                    color="#6B7280"
+                    className="flex-shrink-0"
+                    style={{
+                      transform: openGap === index ? "rotate(180deg)" : "none",
+                      transition: "transform 0.2s",
+                    }}
+                  />
                 </button>
                 {openGap === index && (
-                  <p className="mt-2 ml-6 text-sm" style={{ color: "#6B7280" }}>
+                  <p
+                    className="mt-2 ml-6 text-sm"
+                    style={{
+                      color: "var(--color-text-secondary)",
+                      lineHeight: 1.5,
+                    }}
+                  >
                     {gap.detail}
                   </p>
                 )}

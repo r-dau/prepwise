@@ -20,7 +20,7 @@ export default function InputSection({
   onFileUpload,
 }: InputSectionProps) {
   return (
-    <div className="mb-4 sm:mb-8 w-full">
+    <div className="mb-4 sm:mb-6 w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-4">
         {/* CV Input */}
         <div

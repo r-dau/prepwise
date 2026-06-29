@@ -6,8 +6,10 @@ interface MatchScoreCardProps {
 
 export default function MatchScoreCard({ score }: MatchScoreCardProps) {
   const getColor = () => {
+    if (score >= 90) return "#16A34A";
     if (score >= 75) return "#22C55E";
-    if (score >= 50) return "#F59E0B";
+    if (score >= 60) return "#FDD017";
+    if (score >= 40) return "#F97316";
     return "#EF4444";
   };
 
@@ -29,20 +31,23 @@ export default function MatchScoreCard({ score }: MatchScoreCardProps) {
 
   return (
     <div
-      className="rounded-lg p-6 border w-full md:col-span-1"
-      style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E7EB" }}
+      className="rounded-lg p-6 border w-full h-full"
+      style={{
+        backgroundColor: "var(--color-background)",
+        borderColor: "var(--color-border)",
+      }}
     >
       {/* Header */}
       <div className="flex items-center gap-2 mb-6">
         <div
-          className="flex rounded-full items-center justify-center bg-purple-100"
-          style={{ width: "48px", height: "48px" }}
+          className="flex rounded-full items-center justify-center bg-purple-100 flex-shrink-0"
+          style={{ width: "42px", height: "42px" }}
         >
-          <TbTargetArrow color="#7C3AED" size={24} />
+          <TbTargetArrow color="var(--color-primary)" size={22} />
         </div>
         <h3
-          className="font-semibold"
-          style={{ color: "#111827", fontSize: "18px" }}
+          className="font-semibold whitespace-nowrap"
+          style={{ color: "var(--color-text-primary)", fontSize: "18px" }}
         >
           Match Score
         </h3>
