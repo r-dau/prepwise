@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { FiGithub } from "react-icons/fi";
 import { FaLinkedin } from "react-icons/fa";
 import { TbTargetArrow } from "react-icons/tb";
@@ -49,12 +51,14 @@ export default function AboutPage() {
       <main className="w-full mx-auto py-8 sm:py-12 px-6 sm:px-8 max-w-[900px]">
         {/* Hero */}
         <div className="mb-12 text-center">
-          <div
-            className="w-16 h-16 rounded-xl flex items-center justify-center font-bold text-white text-xl mx-auto mb-6"
-            style={{ backgroundColor: "#7C3AED" }}
-          >
-            PW
-          </div>
+          <Image
+            src="/logo-icon.svg"
+            alt="Prepwise"
+            width={56}
+            height={56}
+            className="mx-auto mb-4"
+          />
+
           <h1
             className="mb-4"
             style={{ color: "#111827", fontSize: "36px", fontWeight: 700 }}

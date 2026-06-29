@@ -107,7 +107,7 @@ export default function Home() {
       className="w-full min-h-screen flex flex-col items-center justify-center"
       style={{ backgroundColor: "var(--color-background-alt)" }}
     >
-      <main className="w-full mx-auto py-8 sm:pt-8 lg:pt-12 sm:pb-4 lg:pb-4 px-6 sm:px-6 lg:px-8 flex flex-col items-center justify-center max-w-[1200px]">
+      <main className="w-full mx-auto py-8 sm:pt-8 lg:pt-8 sm:pb-6 lg:pb-6 px-6 sm:px-6 lg:px-8 flex flex-col items-center justify-center max-w-[1200px]">
         {/* Header Section */}
         <HeroSection />
 

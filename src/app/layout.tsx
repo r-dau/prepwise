@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,10 +10,17 @@ const inter = Inter({
   weight: ["400", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: "PrepWise - Interview Preparation",
+export const metadata = {
+  title: "Prepwise – AI Interview Coach",
   description:
-    "Analysiere deinen Lebenslauf und eine Stellenanzeige und erhalte personalisiertes Feedback",
+    "Analysiere deinen Lebenslauf und bereite dich gezielt auf Interviews vor.",
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +35,7 @@ export default function RootLayout({
         <main className="flex-1 flex items-center justify-center w-full">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
