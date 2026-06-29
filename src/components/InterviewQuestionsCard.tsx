@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { BsChatLeftText } from "react-icons/bs";
-import { IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { IoChevronDown } from "react-icons/io5";
 
 interface Question {
   question: string;
@@ -40,7 +40,7 @@ function QuestionItem({
         style={{
           width: "28px",
           height: "28px",
-          backgroundColor: "#7C3AED",
+          backgroundColor: "var(--color-primary)",
           marginTop: "2px",
         }}
       >
@@ -72,7 +72,13 @@ function QuestionItem({
           }}
         >
           {open ? "Weniger" : "Mehr anzeigen"}
-          {open ? <IoChevronUp size={14} /> : <IoChevronDown size={14} />}
+          <IoChevronDown
+            size={16}
+            style={{
+              transform: open ? "rotate(180deg)" : "none",
+              transition: "transform 0.2s",
+            }}
+          />
         </button>
       </div>
     </li>
@@ -89,17 +95,20 @@ export default function InterviewQuestionsCard({
   return (
     <div
       className="rounded-lg p-6 sm:p-8 border w-full"
-      style={{ backgroundColor: "#FAFAFA", borderColor: "#E5E7EB" }}
+      style={{
+        backgroundColor: "var(--color-background)",
+        borderColor: "var(--color-border)",
+      }}
     >
       {/* Header */}
-      <div className="flex items-start gap-3 mb-6">
+      <div className="flex items-center gap-2 mb-4">
         <div
           className="flex rounded-full items-center justify-center bg-purple-100 flex-shrink-0 mt-1"
           style={{ width: "40px", height: "40px" }}
         >
-          <BsChatLeftText size={16} color="#7C3AED" />
+          <BsChatLeftText size={16} color="var(--color-primary)" />
         </div>
-        <h2
+        <h3
           style={{
             color: "var(--color-text-primary)",
             fontSize: "22px",
@@ -108,7 +117,7 @@ export default function InterviewQuestionsCard({
           }}
         >
           Mögliche Interviewfragen
-        </h2>
+        </h3>
       </div>
 
       {/* Questions */}
@@ -125,12 +134,18 @@ export default function InterviewQuestionsCard({
             onClick={() => setShowAll(!showAll)}
             className="flex items-center gap-2 px-6 py-2.5 rounded-lg border border-violet-200 text-sm font-medium transition-all"
             style={{
-              color: "#7C3AED",
-              backgroundColor: "#FFFFFF",
+              color: "var(--color-primary)",
+              backgroundColor: "var(--color-background)",
             }}
           >
             {showAll ? "Weniger anzeigen" : "Weitere Fragen anzeigen"}
-            {showAll ? <IoChevronUp size={16} /> : <IoChevronDown size={16} />}
+            <IoChevronDown
+              size={16}
+              style={{
+                transform: showAll ? "rotate(180deg)" : "none",
+                transition: "transform 0.2s",
+              }}
+            />
           </button>
         </div>
       )}

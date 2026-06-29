@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { LuSquareCheckBig } from "react-icons/lu";
 import { FaCheckCircle } from "react-icons/fa";
-import { IoWarning, IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { IoWarning, IoChevronDown } from "react-icons/io5";
 
 interface SkillGapCardProps {
   skillGaps: { label: string; detail: string }[];
@@ -26,7 +26,10 @@ export default function SkillGapCard({
   return (
     <div
       className="rounded-lg p-6 border w-full h-full md:col-span-2"
-      style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E7EB" }}
+      style={{
+        backgroundColor: "var(--color-background)",
+        borderColor: "var(--color-border)",
+      }}
     >
       {/* Header */}
       <div className="flex items-center gap-2 mb-6">
@@ -34,9 +37,15 @@ export default function SkillGapCard({
           className="flex rounded-full items-center justify-center bg-purple-100"
           style={{ width: "42px", height: "42px" }}
         >
-          <LuSquareCheckBig size={18} color="#7C3AED" />
+          <LuSquareCheckBig size={18} color="var(--color-primary)" />
         </div>
-        <h3 style={{ color: "#111827", fontSize: "18px", fontWeight: 600 }}>
+        <h3
+          style={{
+            color: "var(--color-text-primary)",
+            fontSize: "18px",
+            fontWeight: 600,
+          }}
+        >
           Skill Gap Analyse
         </h3>
       </div>
@@ -81,7 +90,7 @@ export default function SkillGapCard({
                   </div>
                   <IoChevronDown
                     size={14}
-                    color="#6B7280"
+                    color="var(--color-text-secondary)"
                     className="flex-shrink-0"
                     style={{
                       transform:
@@ -130,7 +139,7 @@ export default function SkillGapCard({
                   <div className="flex items-center gap-2 min-w-0">
                     <IoWarning
                       size={16}
-                      color="#F59E0B"
+                      color="var(--color-warning)"
                       className="flex-shrink-0"
                     />
                     <span
@@ -145,7 +154,7 @@ export default function SkillGapCard({
                   </div>
                   <IoChevronDown
                     size={14}
-                    color="#6B7280"
+                    color="var(--color-text-secondary)"
                     className="flex-shrink-0"
                     style={{
                       transform: openGap === index ? "rotate(180deg)" : "none",
