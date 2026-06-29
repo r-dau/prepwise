@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prepwise – AI Interview Coach
+
+> A portfolio project built to demonstrate Next.js, TypeScript, and AI integration skills — and to solve a real problem I faced during my own job search.
+
+**Live Demo:** [prepwise-ten-amber.vercel.app](https://prepwise-ten-amber.vercel.app)  
+**Demo Access:** Contact me for the password via [LinkedIn](https://www.linkedin.com/in/richard-dau/)
+
+---
+
+## What is Prepwise?
+
+Prepwise is an AI-powered interview preparation tool for software developers. Paste your CV and a job description, and Prepwise analyses your profile match, identifies skill gaps, and generates personalised interview questions — so you walk into your next interview better prepared.
+
+---
+
+## Features
+
+- **Match Score** — AI-generated percentage score showing how well your profile fits the role
+- **Skill Gap Analysis** — Side-by-side view of your strengths and missing skills
+- **Preparation Tips** — Personalised recommendations on what to study before the interview
+- **Interview Questions** — Likely questions with tips on how to answer them best
+- **CV Upload** — Upload your CV as PDF or Word (.docx) instead of pasting text
+- **Analysis History** — All past analyses saved locally so you can review them anytime
+- **Password Protection** — Demo access protected to prevent API abuse
+
+---
+
+## Tech Stack
+
+| Layer        | Technology                               |
+| ------------ | ---------------------------------------- |
+| Framework    | Next.js 15 (App Router)                  |
+| Language     | TypeScript                               |
+| Styling      | Tailwind CSS v4                          |
+| AI           | Anthropic Claude API (claude-sonnet-4-6) |
+| File Parsing | unpdf, mammoth                           |
+| Deployment   | Vercel                                   |
+| Storage      | localStorage                             |
+
+---
+
+## What I learned building this
+
+- **Prompt Engineering** — Structuring prompts to return reliable, typed JSON from an LLM
+- **Next.js App Router** — File-based routing, server components, and API routes
+- **API Route Development** — Building and securing serverless endpoints
+- **File Handling** — Extracting text from PDFs and Word documents server-side
+- **State Management** — Managing complex UI state across multiple components in React
+- **Responsive Design** — Mobile-first layouts with Tailwind CSS
+- **Git Workflow** — Feature branches, pull requests, and semantic commit messages
+- **Deployment** — Environment variables, Vercel deployment, and CI/CD via GitHub
+
+---
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── analyze/      # Main AI analysis endpoint
+│   │   ├── verify/       # Password verification endpoint
+│   │   └── parse-file/   # PDF and Word file parsing endpoint
+│   ├── history/          # Analysis history pages
+│   ├── about/            # About page
+│   └── page.tsx          # Main dashboard
+├── components/           # Reusable UI components
+├── lib/                  # Utility functions (history, file parser)
+└── types/                # Shared TypeScript interfaces
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- An [Anthropic API key](https://console.anthropic.com)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone https://github.com/r-dau/prepwise.git
+cd prepwise
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Add your keys to `.env.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+ANTHROPIC_API_KEY=your_api_key_here
+DEMO_PASSWORD=your_password_here
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Start the development server
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Richard Dau** — Frontend Developer
 
-## Deploy on Vercel
+- [GitHub](https://github.com/r-dau)
+- [LinkedIn](https://www.linkedin.com/in/richard-dau/)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
