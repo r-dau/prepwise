@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { HiLightBulb } from "react-icons/hi";
-import { IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { IoChevronDown } from "react-icons/io5";
 
 interface PreparationTipsCardProps {
   tips: { label: string; detail: string }[];
@@ -33,11 +33,14 @@ function AccordionItem({ label, detail }: { label: string; detail: string }) {
           {label}
         </span>
         <span className="flex-shrink-0">
-          {open ? (
-            <IoChevronUp size={14} color="var(--color-primary)" />
-          ) : (
-            <IoChevronDown size={14} color="var(--color-primary)" />
-          )}
+          <IoChevronDown
+            size={14}
+            color="var(--color-primary)"
+            style={{
+              transform: open ? "rotate(180deg)" : "none",
+              transition: "transform 0.2s",
+            }}
+          />
         </span>
       </button>
 
