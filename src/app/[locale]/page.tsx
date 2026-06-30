@@ -12,6 +12,7 @@ import InputSection from "@/components/InputSection";
 import PasswordInput from "@/components/PasswordInput";
 import AnalysisSkeleton from "@/components/AnalysisSkeleton";
 import AnalysisResults from "@/components/AnalysisResults";
+import JobTitleModal from "@/components/JobTitleModal";
 
 export default function Home() {
   const t = useTranslations("errors");
@@ -25,6 +26,9 @@ export default function Home() {
   const [showPassword, setShowPassword] = useState(false);
   const [cvFileName, setCvFileName] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [pendingResult, setPendingResult] = useState<AnalysisResult | null>(
+    null,
+  );
 
   const handleAnalyze = async () => {
     if (!String(cv).trim() || !String(jobDescription).trim()) {
@@ -58,8 +62,9 @@ export default function Home() {
       const data: AnalysisResult = await response.json();
 
       if (!data.jobTitle || data.jobTitle.trim() === "") {
-        const manualTitle = prompt("Kein Jobtitel gefunden. Bitte eingeben:");
-        data.jobTitle = manualTitle || "Unbekannte Stelle";
+        setPendingResult(data);
+        setLoading(false);
+        return;
       }
 
       saveToHistory(data.jobTitle, data);
@@ -69,6 +74,15 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleJobTitleConfirm = (title: string) => {
+    if (!pendingResult) return;
+
+    const data = { ...pendingResult, jobTitle: title };
+    saveToHistory(data.jobTitle, data);
+    setResult(data);
+    setPendingResult(null);
   };
 
   const handlePasswordChange = async (value: string) => {
@@ -140,6 +154,7 @@ export default function Home() {
       </main>
 
       {loading && <AnalysisSkeleton />}
+      {pendingResult && <JobTitleModal onConfirm={handleJobTitleConfirm} />}
       {result && <AnalysisResults result={result} />}
     </div>
   );
