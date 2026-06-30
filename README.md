@@ -21,6 +21,7 @@ Prepwise is an AI-powered interview preparation tool for software developers. Pa
 - **Interview Questions** — Likely questions with tips on how to answer them best
 - **CV Upload** — Upload your CV as PDF or Word (.docx) instead of pasting text
 - **Analysis History** — All past analyses saved locally so you can review them anytime
+- **Multi-language Support** — Full German and English UI with automatic browser language detection
 - **Password Protection** — Demo access protected to prevent API abuse
 
 ---
@@ -29,10 +30,11 @@ Prepwise is an AI-powered interview preparation tool for software developers. Pa
 
 | Layer        | Technology                               |
 | ------------ | ---------------------------------------- |
-| Framework    | Next.js 15 (App Router)                  |
+| Framework    | Next.js 16 (App Router)                  |
 | Language     | TypeScript                               |
 | Styling      | Tailwind CSS v4                          |
 | AI           | Anthropic Claude API (claude-sonnet-4-6) |
+| i18n         | next-intl                                |
 | File Parsing | unpdf, mammoth                           |
 | Deployment   | Vercel                                   |
 | Storage      | localStorage                             |
@@ -41,9 +43,10 @@ Prepwise is an AI-powered interview preparation tool for software developers. Pa
 
 ## What I learned building this
 
-- **Prompt Engineering** — Structuring prompts to return reliable, typed JSON from an LLM
+- **Prompt Engineering** — Structuring and versioning prompts to return reliable, typed JSON from an LLM
 - **Next.js App Router** — File-based routing, server components, and API routes
 - **API Route Development** — Building and securing serverless endpoints
+- **Internationalization** — Locale-based routing, automatic language detection, and translation management with next-intl
 - **File Handling** — Extracting text from PDFs and Word documents server-side
 - **State Management** — Managing complex UI state across multiple components in React
 - **Responsive Design** — Mobile-first layouts with Tailwind CSS
@@ -57,16 +60,25 @@ Prepwise is an AI-powered interview preparation tool for software developers. Pa
 ```
 src/
 ├── app/
-│   ├── api/
-│   │   ├── analyze/      # Main AI analysis endpoint
-│   │   ├── verify/       # Password verification endpoint
-│   │   └── parse-file/   # PDF and Word file parsing endpoint
-│   ├── history/          # Analysis history pages
-│   ├── about/            # About page
-│   └── page.tsx          # Main dashboard
-├── components/           # Reusable UI components
-├── lib/                  # Utility functions (history, file parser)
-└── types/                # Shared TypeScript interfaces
+│   ├── [locale]/          # Localized routes (de/en)
+│   │   ├── history/       # Analysis history pages
+│   │   ├── about/         # About page
+│   │   ├── layout.tsx     # Locale-aware root layout
+│   │   └── page.tsx       # Main dashboard
+│   └── api/
+│       ├── analyze/       # Main AI analysis endpoint
+│       ├── verify/        # Password verification endpoint
+│       └── parse-file/    # PDF and Word file parsing endpoint
+├── components/             # Reusable UI components
+├── i18n/                   # next-intl routing and request config
+├── lib/                    # Utility functions (history, file parser)
+├── prompts/                # Versioned AI prompts
+├── proxy.ts                # next-intl middleware (formerly middleware.ts)
+└── types/                  # Shared TypeScript interfaces
+
+messages/
+├── de.json                 # German translations
+└── en.json                 # English translations
 ```
 
 ---
@@ -114,5 +126,3 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 - [GitHub](https://github.com/r-dau)
 - [LinkedIn](https://www.linkedin.com/in/richard-dau/)
-
----

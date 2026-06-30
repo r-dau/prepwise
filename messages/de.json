@@ -83,5 +83,12 @@
     "techStackTitle": "Tech Stack & Skills",
     "builtBy": "Built by Richard Dau",
     "bio": "Frontend Developer mit Leidenschaft für saubere, nutzerfreundliche Produkte. Aktuell auf der Suche nach neuen Herausforderungen, meld dich gerne!"
+  },
+  "jobTitleModal": {
+    "title": "Jobtitel nicht gefunden",
+    "description": "Wir konnten keinen Jobtitel aus der Stellenanzeige extrahieren. Bitte gib ihn manuell ein.",
+    "placeholder": "z.B. Frontend Developer",
+    "confirm": "Bestätigen",
+    "defaultTitle": "Unbekannte Stelle"
   }
 }
