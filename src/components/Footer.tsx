@@ -1,8 +1,11 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { FiGithub } from "react-icons/fi";
 import { FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
+  const t = useTranslations("footer");
+
   return (
     <footer
       className="w-full border-t mt-auto py-6 px-6"
@@ -16,7 +19,7 @@ export default function Footer() {
         <div className="flex items-center gap-3">
           <Image src="/logo-icon.svg" alt="Prepwise" width={36} height={36} />
           <p style={{ color: "var(--color-text-secondary)", fontSize: "13px" }}>
-            © {new Date().getFullYear()} PrepWise · Built by Richard Dau
+            © {new Date().getFullYear()} Prepwise · {t("builtBy")}
           </p>
         </div>
 

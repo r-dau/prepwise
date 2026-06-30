@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "history": "History",
+    "about": "About"
+  },
+  "hero": {
+    "title": "Prepare smarter. Interview better.",
+    "description": "Analyse your CV and a job description to receive personalised feedback, skill gaps and interview questions."
+  },
+  "privacy": {
+    "title": "Privacy Notice",
+    "description": "The content you enter is used exclusively for the analysis and is not stored permanently. Please do not enter confidential information or personal data that you would not want to share with an AI service."
+  },
+  "input": {
+    "cv": "Your CV",
+    "cvPlaceholder": "Paste your CV text here",
+    "uploadLabel": "or upload a file",
+    "job": "Job Description",
+    "jobPlaceholder": "Paste the job description here"
+  },
+  "password": {
+    "label": "Demo Password",
+    "placeholder": "Enter password...",
+    "tooltip": "This demo is password protected to prevent misuse and unnecessary API costs. The password is only used to unlock the analysis.",
+    "wrong": "Wrong password",
+    "correct": "Password correct",
+    "analyze": "Start Analysis",
+    "analyzing": "Analysing..."
+  },
+  "results": {
+    "title": "Analysis Results",
+    "matchScore": "Match Score",
+    "goodMatch": "Good Match",
+    "mediumMatch": "Average Match",
+    "lowMatch": "Low Match",
+    "goodMotivation": "You are a great fit for this role! 💪",
+    "mediumMotivation": "With some preparation you can make it! 📚",
+    "lowMotivation": "Focus on closing the skill gaps! 🎯",
+    "skillGap": "Skill Gap Analysis",
+    "strengths": "Your Strengths",
+    "gaps": "Potential Skill Gaps",
+    "tips": "Preparation Tips",
+    "tipsDescription": "Based on this role, you should focus on the following topics:",
+    "questions": "Possible Interview Questions",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "showAllQuestions": "Show more questions",
+    "showFewerQuestions": "Show fewer"
+  },
+  "history": {
+    "title": "My Analyses",
+    "description": "All saved application analyses at a glance.",
+    "empty": "No analyses yet. Start your first analysis on the home page!",
+    "toHome": "Go to Home",
+    "good": "Good",
+    "average": "Average",
+    "needsWork": "Needs Work",
+    "back": "Back to History"
+  },
+  "footer": {
+    "builtBy": "Built by Richard Dau"
+  },
+  "errors": {
+    "fillBothFields": "Please fill in both fields to start the analysis.",
+    "analysisFailed": "Analysis failed. Please try again.",
+    "genericError": "Something went wrong. Please try again."
+  },
+  "about": {
+    "title": "About Prepwise",
+    "subtitle": "A portfolio project built to demonstrate Next.js, TypeScript, and AI integration skills — and to solve a real problem I faced during my own job search.",
+    "whyTitle": "Why Prepwise?",
+    "whyText": "During my own job search as a Frontend Developer, I kept running into the same problem: you seemingly check every box on a job posting on paper, and still don't get invited to interview. Knowing whether you're a good fit isn't enough; what matters is understanding exactly where the gaps are and how to prepare for them. Prepwise solves exactly that. Using AI, it analyzes your resume and a job posting and shows you concretely where you stand and what to prepare for, so you walk into the interview better prepared.",
+    "featuresTitle": "What Prepwise can do",
+    "feature1Title": "Match Score Analysis",
+    "feature1Description": "AI-powered evaluation of how well your profile fits the role — with a concrete percentage and summary.",
+    "feature2Title": "Skill Gap Analysis",
+    "feature2Description": "Identification of missing skills and your strengths compared directly against the job posting.",
+    "feature3Title": "Preparation Tips",
+    "feature3Description": "Personalised recommendations on what to study or prepare before the interview.",
+    "feature4Title": "Interview Questions",
+    "feature4Description": "Likely questions you might face in the interview — with tips on how to answer them best.",
+    "techStackTitle": "Tech Stack & Skills",
+    "builtBy": "Built by Richard Dau",
+    "bio": "Frontend Developer with a passion for clean, user-friendly products. Currently open to new opportunities, feel free to reach out!"
+  }
+}

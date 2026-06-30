@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { HiLightBulb } from "react-icons/hi";
 import { IoChevronDown } from "react-icons/io5";
 
@@ -43,8 +44,6 @@ function AccordionItem({ label, detail }: { label: string; detail: string }) {
           />
         </span>
       </button>
-
-      {/* Detail innerhalb des Chip-Containers */}
       {open && (
         <div
           className="px-3 py-2 rounded-b-lg -mt-1"
@@ -72,6 +71,8 @@ function AccordionItem({ label, detail }: { label: string; detail: string }) {
 export default function PreparationTipsCard({
   tips,
 }: PreparationTipsCardProps) {
+  const t = useTranslations("results");
+
   return (
     <div
       className="rounded-lg p-4 border w-full h-full"
@@ -96,7 +97,7 @@ export default function PreparationTipsCard({
             lineHeight: 1.3,
           }}
         >
-          Vorbereitungstipps
+          {t("tips")}
         </h3>
       </div>
 
@@ -104,8 +105,7 @@ export default function PreparationTipsCard({
         className="mb-3"
         style={{ color: "var(--color-text-secondary)", fontSize: "13px" }}
       >
-        Basierend auf dieser Stelle solltest du dich besonders mit folgenden
-        Themen beschäftigen:
+        {t("tipsDescription")}
       </p>
 
       <ul className="flex flex-col gap-2">

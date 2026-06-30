@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import MatchScoreCard from "@/components/MatchScoreCard";
 import SkillGapCard from "@/components/SkillGapCard";
 import PreparationTipsCard from "@/components/PreparationTipsCard";
@@ -9,6 +10,8 @@ interface AnalysisResultsProps {
 }
 
 export default function AnalysisResults({ result }: AnalysisResultsProps) {
+  const t = useTranslations("results");
+
   return (
     <section
       id="analysis"
@@ -24,7 +27,7 @@ export default function AnalysisResults({ result }: AnalysisResultsProps) {
             fontWeight: 600,
           }}
         >
-          Analyseergebnisse
+          {t("title")}
         </h2>
 
         {/* Match Summary */}

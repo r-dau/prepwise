@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { BsChatLeftText } from "react-icons/bs";
 import { IoChevronDown } from "react-icons/io5";
 
@@ -24,17 +25,16 @@ function QuestionItem({
   index: number;
 }) {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("results");
 
   return (
     <li
-      key={index}
       className="p-4 rounded-lg flex flex-col sm:flex-row items-start gap-3"
       style={{
         backgroundColor: "var(--color-background)",
         border: "1px solid var(--color-border)",
       }}
     >
-      {/* Number Badge */}
       <div
         className="flex-shrink-0 flex items-center justify-center rounded-full text-white text-sm font-bold"
         style={{
@@ -47,7 +47,6 @@ function QuestionItem({
         {index + 1}
       </div>
 
-      {/* Question + Tip */}
       <div className="flex flex-col gap-2">
         <p style={{ color: "var(--color-text-primary)", fontSize: "15px" }}>
           {question.question}
@@ -71,9 +70,9 @@ function QuestionItem({
               : "var(--color-background)",
           }}
         >
-          {open ? "Weniger" : "Mehr anzeigen"}
+          {open ? t("showLess") : t("showMore")}
           <IoChevronDown
-            size={16}
+            size={14}
             style={{
               transform: open ? "rotate(180deg)" : "none",
               transition: "transform 0.2s",
@@ -89,6 +88,7 @@ export default function InterviewQuestionsCard({
   questions,
 }: InterviewQuestionsCardProps) {
   const [showAll, setShowAll] = useState(false);
+  const t = useTranslations("results");
 
   const visible = showAll ? questions : questions.slice(0, INITIAL_COUNT);
 
@@ -108,7 +108,7 @@ export default function InterviewQuestionsCard({
         >
           <BsChatLeftText size={16} color="var(--color-primary)" />
         </div>
-        <h3
+        <h2
           style={{
             color: "var(--color-text-primary)",
             fontSize: "22px",
@@ -116,18 +116,16 @@ export default function InterviewQuestionsCard({
             lineHeight: 1.3,
           }}
         >
-          Mögliche Interviewfragen
-        </h3>
+          {t("questions")}
+        </h2>
       </div>
 
-      {/* Questions */}
       <ul className="space-y-4 mb-6">
         {visible.map((item, index) => (
           <QuestionItem key={index} question={item} index={index} />
         ))}
       </ul>
 
-      {/* Weitere Fragen anzeigen */}
       {questions.length > INITIAL_COUNT && (
         <div className="flex justify-center">
           <button
@@ -138,7 +136,7 @@ export default function InterviewQuestionsCard({
               backgroundColor: "var(--color-background)",
             }}
           >
-            {showAll ? "Weniger anzeigen" : "Weitere Fragen anzeigen"}
+            {showAll ? t("showFewerQuestions") : t("showAllQuestions")}
             <IoChevronDown
               size={16}
               style={{
