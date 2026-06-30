@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { saveToHistory } from "@/lib/history";
 import { extractTextFromFile } from "@/lib/fileParser";
 
@@ -16,6 +16,7 @@ import JobTitleModal from "@/components/JobTitleModal";
 
 export default function Home() {
   const t = useTranslations("errors");
+  const locale = useLocale();
   const [cv, setCv] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -52,7 +53,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cv, jobDescription, password }),
+        body: JSON.stringify({ cv, jobDescription, password, locale }),
       });
 
       if (!response.ok) {

@@ -1,12 +1,11 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
-
 import { buildAnalyzePrompt } from "@/prompts/analyze";
 
 const client = new Anthropic();
 
 export async function POST(request: NextRequest) {
-  const { cv, jobDescription, password } = await request.json();
+  const { cv, jobDescription, password, locale } = await request.json();
 
   if (password !== process.env.DEMO_PASSWORD) {
     return NextResponse.json({ error: "Falsches Passwort." }, { status: 401 });
@@ -25,7 +24,7 @@ export async function POST(request: NextRequest) {
     messages: [
       {
         role: "user",
-        content: buildAnalyzePrompt(cv, jobDescription),
+        content: buildAnalyzePrompt(cv, jobDescription, locale ?? "de"),
       },
     ],
   });
