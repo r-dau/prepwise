@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { loadHistory, deleteFromHistory, HistoryEntry } from "@/lib/history";
 import { useRouter } from "next/navigation";
 import { TbTargetArrow } from "react-icons/tb";
@@ -9,6 +10,7 @@ import { FiTrash2 } from "react-icons/fi";
 export default function HistoryList() {
   const [entries, setEntries] = useState<HistoryEntry[]>(() => loadHistory());
   const router = useRouter();
+  const t = useTranslations("history");
 
   const handleDelete = (id: string) => {
     deleteFromHistory(id);
@@ -16,33 +18,35 @@ export default function HistoryList() {
   };
 
   const getColor = (score: number) => {
-    if (score >= 75) return "#22C55E";
-    if (score >= 50) return "#F59E0B";
-    return "#EF4444";
+    if (score >= 75) return "var(--color-success)";
+    if (score >= 50) return "var(--color-warning)";
+    return "var(--color-error)";
   };
 
   const getLabel = (score: number) => {
-    if (score >= 75) return "Gut";
-    if (score >= 50) return "Durchschnittlich";
-    return "Verbesserungsbedarf";
+    if (score >= 75) return t("good");
+    if (score >= 50) return t("average");
+    return t("needsWork");
   };
 
   if (entries.length === 0) {
     return (
       <div
         className="rounded-lg p-12 border text-center"
-        style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E7EB" }}
+        style={{
+          backgroundColor: "var(--color-background)",
+          borderColor: "var(--color-border)",
+        }}
       >
-        <p style={{ color: "#6B7280", fontSize: "16px" }}>
-          Noch keine Analysen vorhanden. Starte deine erste Analyse auf der
-          Hauptseite!
+        <p style={{ color: "var(--color-text-secondary)", fontSize: "16px" }}>
+          {t("empty")}
         </p>
         <button
           onClick={() => router.push("/")}
           className="mt-6 px-6 py-3 rounded-lg text-white font-semibold"
-          style={{ backgroundColor: "#7C3AED" }}
+          style={{ backgroundColor: "var(--color-primary)" }}
         >
-          Zur Hauptseite
+          {t("toHome")}
         </button>
       </div>
     );
@@ -66,7 +70,7 @@ export default function HistoryList() {
               className="flex rounded-full items-center justify-center bg-purple-100 flex-shrink-0"
               style={{ width: "40px", height: "40px" }}
             >
-              <TbTargetArrow color="#7C3AED" size={20} />
+              <TbTargetArrow color="var(--color-primary)" size={20} />
             </div>
             <div>
               <p
@@ -95,7 +99,7 @@ export default function HistoryList() {
 
           {/* Bottom/Right: Score + Delete */}
           <div className="flex items-center justify-between sm:justify-end sm:gap-6 pl-1 sm:pl-0">
-            <div className="flex items-center gap-2 sm:text-right">
+            <div className="flex items-center gap-2">
               <p
                 style={{
                   color: getColor(entry.matchScore),

@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import { useTranslations } from "next-intl";
 import { FiGithub } from "react-icons/fi";
 import { FaLinkedin } from "react-icons/fa";
 import { TbTargetArrow } from "react-icons/tb";
@@ -18,36 +18,37 @@ const skills = [
   "Deployment mit Vercel",
 ];
 
-const features = [
-  {
-    icon: <TbTargetArrow size={20} color="#7C3AED" />,
-    title: "Match Score Analyse",
-    description:
-      "AI-gestützte Bewertung wie gut dein Profil zur Stelle passt – mit konkretem Prozentwert und Zusammenfassung.",
-  },
-  {
-    icon: <LuSquareCheckBig size={20} color="#7C3AED" />,
-    title: "Skill Gap Analyse",
-    description:
-      "Identifikation fehlender Kompetenzen und deiner Stärken im direkten Vergleich mit der Stellenanzeige.",
-  },
-  {
-    icon: <HiLightBulb size={20} color="#7C3AED" />,
-    title: "Vorbereitungstipps",
-    description:
-      "Personalisierte Empfehlungen was du vor dem Interview vertiefen oder vorbereiten solltest.",
-  },
-  {
-    icon: <BsChatLeftText size={20} color="#7C3AED" />,
-    title: "Interviewfragen",
-    description:
-      "Mögliche Fragen die im Interview auf dich zukommen könnten – mit Tipps wie du sie am besten beantwortest.",
-  },
-];
-
 export default function AboutPage() {
+  const t = useTranslations("about");
+
+  const features = [
+    {
+      icon: <TbTargetArrow size={20} color="var(--color-primary)" />,
+      title: t("feature1Title"),
+      description: t("feature1Description"),
+    },
+    {
+      icon: <LuSquareCheckBig size={20} color="var(--color-primary)" />,
+      title: t("feature2Title"),
+      description: t("feature2Description"),
+    },
+    {
+      icon: <HiLightBulb size={20} color="var(--color-primary)" />,
+      title: t("feature3Title"),
+      description: t("feature3Description"),
+    },
+    {
+      icon: <BsChatLeftText size={20} color="var(--color-primary)" />,
+      title: t("feature4Title"),
+      description: t("feature4Description"),
+    },
+  ];
+
   return (
-    <div className="w-full bg-[#FAFAFA] min-h-screen">
+    <div
+      className="w-full min-h-screen"
+      style={{ backgroundColor: "var(--color-background-alt)" }}
+    >
       <main className="w-full mx-auto py-8 sm:py-12 px-6 sm:px-8 max-w-[900px]">
         {/* Hero */}
         <div className="mb-12 text-center">
@@ -58,80 +59,74 @@ export default function AboutPage() {
             height={56}
             className="mx-auto mb-4"
           />
-
           <h1
             className="mb-4"
-            style={{ color: "#111827", fontSize: "36px", fontWeight: 700 }}
+            style={{
+              color: "var(--color-text-primary)",
+              fontSize: "36px",
+              fontWeight: 700,
+            }}
           >
-            Über Prepwise
+            {t("title")}
           </h1>
           <p
             style={{
-              color: "#6B7280",
+              color: "var(--color-text-secondary)",
               fontSize: "18px",
               maxWidth: "600px",
               margin: "0 auto",
             }}
           >
-            A portfolio project built to demonstrate modern full-stack
-            development skills — and to solve a real problem I faced during my
-            own job search.
+            {t("subtitle")}
           </p>
         </div>
 
-        {/* Warum Prepwise */}
+        {/* Why Prepwise */}
         <div
           className="rounded-lg p-8 border mb-8"
-          style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E7EB" }}
+          style={{
+            backgroundColor: "var(--color-background)",
+            borderColor: "var(--color-border)",
+          }}
         >
           <h2
             className="mb-4"
-            style={{ color: "#111827", fontSize: "22px", fontWeight: 600 }}
+            style={{
+              color: "var(--color-text-primary)",
+              fontSize: "22px",
+              fontWeight: 600,
+            }}
           >
-            🇩🇪 Warum Prepwise?
+            {t("whyTitle")}
           </h2>
-          <p style={{ color: "#6B7280", fontSize: "16px", lineHeight: "1.8" }}>
-            Während meiner eigenen Jobsuche als Frontend Developer habe ich
-            gemerkt: Es ist schwer einzuschätzen, wie gut das eigene Profil
-            wirklich zu einer Stelle passt – und noch schwerer, sich gezielt auf
-            die richtigen Fragen vorzubereiten. Prepwise löst genau dieses
-            Problem. Mit KI-Unterstützung analysiert es deinen Lebenslauf und
-            eine Stellenanzeige und gibt dir konkretes, personalisiertes
-            Feedback – damit du besser vorbereitet ins Interview gehst.
-          </p>
-        </div>
-
-        <div
-          className="rounded-lg p-8 border mb-8"
-          style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E7EB" }}
-        >
-          <h2
-            className="mb-4"
-            style={{ color: "#111827", fontSize: "22px", fontWeight: 600 }}
+          <p
+            style={{
+              color: "var(--color-text-secondary)",
+              fontSize: "16px",
+              lineHeight: "1.8",
+            }}
           >
-            🇬🇧 Why Prepwise?
-          </h2>
-          <p style={{ color: "#6B7280", fontSize: "16px", lineHeight: "1.8" }}>
-            During my own job search as a Frontend Developer, I realized how
-            hard it is to objectively assess how well your profile matches a job
-            posting — and even harder to know which interview questions to
-            prepare for. Prepwise solves exactly that. Using AI, it analyses
-            your CV and a job description and gives you concrete, personalised
-            feedback — so you walk into your next interview better prepared and
-            more confident.
+            {t("whyText")}
           </p>
         </div>
 
         {/* Features */}
         <div
           className="rounded-lg p-8 border mb-8"
-          style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E7EB" }}
+          style={{
+            backgroundColor: "var(--color-background)",
+            borderColor: "var(--color-border)",
+          }}
         >
           <h2
             className="mb-6"
-            style={{ color: "#111827", fontSize: "22px", fontWeight: 600 }}
+            style={{
+              color: "var(--color-text-primary)",
+              fontSize: "22px",
+              fontWeight: 600,
+            }}
           >
-            Was Prepwise kann
+            {t("featuresTitle")}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {features.map((feature, index) => (
@@ -145,7 +140,7 @@ export default function AboutPage() {
                 <div>
                   <p
                     style={{
-                      color: "#111827",
+                      color: "var(--color-text-primary)",
                       fontSize: "15px",
                       fontWeight: 600,
                     }}
@@ -155,7 +150,7 @@ export default function AboutPage() {
                   </p>
                   <p
                     style={{
-                      color: "#6B7280",
+                      color: "var(--color-text-secondary)",
                       fontSize: "14px",
                       lineHeight: "1.6",
                     }}
@@ -171,13 +166,20 @@ export default function AboutPage() {
         {/* Tech Stack */}
         <div
           className="rounded-lg p-8 border mb-8"
-          style={{ backgroundColor: "#FFFFFF", borderColor: "#E5E7EB" }}
+          style={{
+            backgroundColor: "var(--color-background)",
+            borderColor: "var(--color-border)",
+          }}
         >
           <h2
             className="mb-6"
-            style={{ color: "#111827", fontSize: "22px", fontWeight: 600 }}
+            style={{
+              color: "var(--color-text-primary)",
+              fontSize: "22px",
+              fontWeight: 600,
+            }}
           >
-            Tech Stack & Skills
+            {t("techStackTitle")}
           </h2>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill, index) => (
@@ -185,9 +187,9 @@ export default function AboutPage() {
                 key={index}
                 className="px-3 py-1.5 rounded-full text-sm font-medium"
                 style={{
-                  backgroundColor: "#F5F3FF",
-                  color: "#7C3AED",
-                  border: "1px solid #E5E7EB",
+                  backgroundColor: "var(--color-background-light)",
+                  color: "var(--color-primary)",
+                  border: "1px solid var(--color-border)",
                 }}
               >
                 {skill}
@@ -199,26 +201,31 @@ export default function AboutPage() {
         {/* About Me + CTA */}
         <div
           className="rounded-lg p-8 border mb-8 text-center"
-          style={{ backgroundColor: "#F5F3FF", borderColor: "#E5E7EB" }}
+          style={{
+            backgroundColor: "var(--color-background-light)",
+            borderColor: "var(--color-border)",
+          }}
         >
           <h2
             className="mb-4"
-            style={{ color: "#111827", fontSize: "22px", fontWeight: 600 }}
+            style={{
+              color: "var(--color-text-primary)",
+              fontSize: "22px",
+              fontWeight: 600,
+            }}
           >
-            Built by Richard Dau
+            {t("builtBy")}
           </h2>
           <p
             style={{
-              color: "#6B7280",
+              color: "var(--color-text-secondary)",
               fontSize: "16px",
               lineHeight: "1.8",
               maxWidth: "560px",
               margin: "0 auto 24px",
             }}
           >
-            Frontend Developer with a passion for building clean, user-friendly
-            products. Currently looking for new opportunities — feel free to
-            reach out!
+            {t("bio")}
           </p>
           <div className="flex items-center justify-center gap-4">
             <a
@@ -226,7 +233,10 @@ export default function AboutPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm transition-all hover:opacity-80"
-              style={{ backgroundColor: "#111827", color: "#FFFFFF" }}
+              style={{
+                backgroundColor: "var(--color-text-primary)",
+                color: "#FFFFFF",
+              }}
             >
               <FiGithub size={18} />
               GitHub

@@ -1,6 +1,9 @@
+import { useTranslations } from "next-intl";
 import { BsShield } from "react-icons/bs";
 
 export default function PrivacyBanner() {
+  const t = useTranslations("privacy");
+
   return (
     <div
       className="flex bg-violet-50 rounded-lg border border-violet-200 text-gray-700 gap-4 p-4 mb-6 w-full"
@@ -14,13 +17,10 @@ export default function PrivacyBanner() {
           className="font-semibold"
           style={{ color: "var(--color-text-primary)", fontSize: "16px" }}
         >
-          Datenschutzhinweis
+          {t("title")}
         </h3>
         <p style={{ color: "var(--color-text-secondary)", fontSize: "14px" }}>
-          Die eingegebenen Inhalte werden ausschließlich für die Analyse
-          verwendet und nicht dauerhaft gespeichert. Bitte verwende keine
-          vertraulichen Informationen oder personenbezogenen Daten, die du nicht
-          mit einem KI-Dienst teilen möchtest.
+          {t("description")}
         </p>
       </div>
     </div>

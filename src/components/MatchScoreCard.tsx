@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { TbTargetArrow } from "react-icons/tb";
 
 interface MatchScoreCardProps {
@@ -5,6 +8,8 @@ interface MatchScoreCardProps {
 }
 
 export default function MatchScoreCard({ score }: MatchScoreCardProps) {
+  const t = useTranslations("results");
+
   const getColor = () => {
     if (score >= 90) return "#16A34A";
     if (score >= 75) return "#22C55E";
@@ -14,15 +19,15 @@ export default function MatchScoreCard({ score }: MatchScoreCardProps) {
   };
 
   const getLabel = () => {
-    if (score >= 75) return "Gute Übereinstimmung";
-    if (score >= 50) return "Mittlere Übereinstimmung";
-    return "Geringe Übereinstimmung";
+    if (score >= 75) return t("goodMatch");
+    if (score >= 50) return t("mediumMatch");
+    return t("lowMatch");
   };
 
   const getMotivation = () => {
-    if (score >= 75) return "Du passt gut zu dieser Stelle! 💪";
-    if (score >= 50) return "Mit etwas Vorbereitung bist du dabei! 📚";
-    return "Fokussiere dich auf die Skill Gaps! 🎯";
+    if (score >= 75) return t("goodMotivation");
+    if (score >= 50) return t("mediumMotivation");
+    return t("lowMotivation");
   };
 
   const circumference = 2 * Math.PI * 54;
@@ -49,7 +54,7 @@ export default function MatchScoreCard({ score }: MatchScoreCardProps) {
           className="font-semibold whitespace-nowrap"
           style={{ color: "var(--color-text-primary)", fontSize: "18px" }}
         >
-          Match Score
+          {t("matchScore")}
         </h3>
       </div>
 
@@ -81,11 +86,10 @@ export default function MatchScoreCard({ score }: MatchScoreCardProps) {
               }}
             />
           </svg>
-          {/* Score inside ring */}
           <div className="absolute flex items-center justify-center">
             <span
               style={{
-                color: "#111827",
+                color: "var(--color-text-primary)",
                 fontSize: "26px",
                 fontWeight: 700,
                 lineHeight: 1,
@@ -93,17 +97,22 @@ export default function MatchScoreCard({ score }: MatchScoreCardProps) {
             >
               {score}
             </span>
-            <span style={{ color: "#6B7280", fontSize: "12px" }}>%</span>
+            <span
+              style={{ color: "var(--color-text-secondary)", fontSize: "12px" }}
+            >
+              %
+            </span>
           </div>
         </div>
 
-        {/* Label */}
         <p className="mt-4 font-semibold" style={{ color, fontSize: "16px" }}>
           {getLabel()}
         </p>
 
-        {/* Motivation */}
-        <p className="mt-2 text-center text-sm" style={{ color: "#6B7280" }}>
+        <p
+          className="mt-2 text-center text-sm"
+          style={{ color: "var(--color-text-secondary)" }}
+        >
           {getMotivation()}
         </p>
       </div>

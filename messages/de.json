@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "history": "Historie",
+    "about": "About"
+  },
+  "hero": {
+    "title": "Prepare smarter. Interview better.",
+    "description": "Analysiere deinen Lebenslauf und eine Stellenanzeige und erhalte personalisiertes Feedback, Skill Gaps und Interviewfragen."
+  },
+  "privacy": {
+    "title": "Datenschutzhinweis",
+    "description": "Die eingegebenen Inhalte werden ausschließlich für die Analyse verwendet und nicht dauerhaft gespeichert. Bitte verwende keine vertraulichen Informationen oder personenbezogenen Daten, die du nicht mit einem KI-Dienst teilen möchtest."
+  },
+  "input": {
+    "cv": "Dein Lebenslauf",
+    "cvPlaceholder": "Füge hier den Text deines Lebenslaufs ein",
+    "uploadLabel": "oder Datei hochladen",
+    "job": "Stellenanzeige",
+    "jobPlaceholder": "Füge hier den Text der Stellenanzeige ein"
+  },
+  "password": {
+    "label": "Demo-Passwort",
+    "placeholder": "Passwort eingeben...",
+    "tooltip": "Diese Demo ist passwortgeschützt, um Missbrauch und unnötige API-Kosten zu vermeiden. Das Passwort wird nur zur Freigabe der Analyse verwendet.",
+    "wrong": "Falsches Passwort",
+    "correct": "Passwort korrekt",
+    "analyze": "Analyse starten",
+    "analyzing": "Analysiere..."
+  },
+  "results": {
+    "title": "Analyseergebnisse",
+    "matchScore": "Match Score",
+    "goodMatch": "Gute Übereinstimmung",
+    "mediumMatch": "Mittlere Übereinstimmung",
+    "lowMatch": "Geringe Übereinstimmung",
+    "goodMotivation": "Du passt gut zu dieser Stelle! 💪",
+    "mediumMotivation": "Mit etwas Vorbereitung bist du dabei! 📚",
+    "lowMotivation": "Fokussiere dich auf die Skill Gaps! 🎯",
+    "skillGap": "Skill Gap Analyse",
+    "strengths": "Deine Stärken",
+    "gaps": "Potenzielle Skill Gaps",
+    "tips": "Vorbereitungstipps",
+    "tipsDescription": "Basierend auf dieser Stelle solltest du dich besonders mit folgenden Themen beschäftigen:",
+    "questions": "Mögliche Interviewfragen",
+    "showMore": "Mehr anzeigen",
+    "showLess": "Weniger",
+    "showAllQuestions": "Weitere Fragen anzeigen",
+    "showFewerQuestions": "Weniger anzeigen"
+  },
+  "history": {
+    "title": "Meine Analysen",
+    "description": "Alle gespeicherten Bewerbungsanalysen auf einen Blick.",
+    "empty": "Noch keine Analysen vorhanden. Starte deine erste Analyse auf der Hauptseite!",
+    "toHome": "Zur Hauptseite",
+    "good": "Gut",
+    "average": "Durchschnittlich",
+    "needsWork": "Verbesserungsbedarf",
+    "back": "Zurück zur Historie"
+  },
+  "footer": {
+    "builtBy": "Built by Richard Dau"
+  },
+  "errors": {
+    "fillBothFields": "Bitte fülle beide Felder aus, um die Analyse zu starten.",
+    "analysisFailed": "Fehler bei der Analyse. Bitte versuche es erneut.",
+    "genericError": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+  },
+  "about": {
+    "title": "Über Prepwise",
+    "subtitle": "Ein Portfolio-Projekt, das moderne Next.js, TypeScript und KI-Integration demonstriert — und ein echtes Problem löst, das ich während meiner eigenen Jobsuche hatte.",
+    "whyTitle": "Warum Prepwise?",
+    "whyText": "Während meiner eigenen Jobsuche als Frontend Developer habe ich ein Problem immer wieder erlebt: Man erfüllt auf dem Papier scheinbar alle Anforderungen einer Stellenanzeige und bekommt trotzdem keine Einladung. Eine reine Einschätzung, ob man passt, reicht nicht; entscheidend ist, woran es im Detail hapert und wie man sich gezielt darauf vorbereitet. Prepwise löst genau dieses Problem. Mit KI-Unterstützung analysiert es deinen Lebenslauf und eine Stellenanzeige und zeigt dir konkret, wo du stehst und worauf du dich vorbereiten solltest, damit du besser vorbereitet ins Interview gehst.",
+    "featuresTitle": "Was Prepwise kann",
+    "feature1Title": "Match Score Analyse",
+    "feature1Description": "AI-gestützte Bewertung wie gut dein Profil zur Stelle passt – mit konkretem Prozentwert und Zusammenfassung.",
+    "feature2Title": "Skill Gap Analyse",
+    "feature2Description": "Identifikation fehlender Kompetenzen und deiner Stärken im direkten Vergleich mit der Stellenanzeige.",
+    "feature3Title": "Vorbereitungstipps",
+    "feature3Description": "Personalisierte Empfehlungen was du vor dem Interview vertiefen oder vorbereiten solltest.",
+    "feature4Title": "Interviewfragen",
+    "feature4Description": "Mögliche Fragen die im Interview auf dich zukommen könnten – mit Tipps wie du sie am besten beantwortest.",
+    "techStackTitle": "Tech Stack & Skills",
+    "builtBy": "Built by Richard Dau",
+    "bio": "Frontend Developer mit Leidenschaft für saubere, nutzerfreundliche Produkte. Aktuell auf der Suche nach neuen Herausforderungen, meld dich gerne!"
+  }
+}

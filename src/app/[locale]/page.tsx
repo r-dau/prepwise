@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { saveToHistory } from "@/lib/history";
 import { extractTextFromFile } from "@/lib/fileParser";
 
@@ -13,6 +14,7 @@ import AnalysisSkeleton from "@/components/AnalysisSkeleton";
 import AnalysisResults from "@/components/AnalysisResults";
 
 export default function Home() {
+  const t = useTranslations("errors");
   const [cv, setCv] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -26,7 +28,7 @@ export default function Home() {
 
   const handleAnalyze = async () => {
     if (!String(cv).trim() || !String(jobDescription).trim()) {
-      setError("Bitte fülle beide Felder aus, um die Analyse zu starten.");
+      setError(t("fillBothFields"));
       setLoading(false);
       return;
     }
@@ -50,12 +52,11 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error("Fehler bei der Analyse. Bitte versuche es erneut.");
+        throw new Error(t("analysisFailed"));
       }
 
       const data: AnalysisResult = await response.json();
 
-      // Jobtitel prüfen
       if (!data.jobTitle || data.jobTitle.trim() === "") {
         const manualTitle = prompt("Kein Jobtitel gefunden. Bitte eingeben:");
         data.jobTitle = manualTitle || "Unbekannte Stelle";
@@ -64,7 +65,7 @@ export default function Home() {
       saveToHistory(data.jobTitle, data);
       setResult(data);
     } catch (err) {
-      setError((err as Error).message);
+      setError((err as Error).message || t("genericError"));
     } finally {
       setLoading(false);
     }
@@ -95,7 +96,7 @@ export default function Home() {
     try {
       setUploadError(null);
       const text = await extractTextFromFile(file);
-      setCv(String(text)); // Sicherstellen dass es ein String ist
+      setCv(String(text));
       setCvFileName(file.name);
     } catch (err) {
       setUploadError((err as Error).message);
@@ -108,13 +109,8 @@ export default function Home() {
       style={{ backgroundColor: "var(--color-background-alt)" }}
     >
       <main className="w-full mx-auto py-8 sm:pt-8 lg:pt-8 sm:pb-6 lg:pb-6 px-6 sm:px-6 lg:px-8 flex flex-col items-center justify-center max-w-[1200px]">
-        {/* Header Section */}
         <HeroSection />
-
-        {/* Alert Section */}
         <PrivacyBanner />
-
-        {/* Input Section */}
         <InputSection
           cv={cv}
           jobDescription={jobDescription}
@@ -124,7 +120,6 @@ export default function Home() {
           onJobDescriptionChange={setJobDescription}
           onFileUpload={handleFileUpload}
         />
-        {/* Password Input Section */}
         <PasswordInput
           password={password}
           passwordValid={passwordValid}
@@ -144,7 +139,6 @@ export default function Home() {
         )}
       </main>
 
-      {/* Results Section */}
       {loading && <AnalysisSkeleton />}
       {result && <AnalysisResults result={result} />}
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { LuSquareCheckBig } from "react-icons/lu";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoWarning, IoChevronDown } from "react-icons/io5";
@@ -14,6 +15,7 @@ export default function SkillGapCard({
   skillGaps,
   strengths,
 }: SkillGapCardProps) {
+  const t = useTranslations("results");
   const [openStrength, setOpenStrength] = useState<number | null>(null);
   const [openGap, setOpenGap] = useState<number | null>(null);
 
@@ -46,7 +48,7 @@ export default function SkillGapCard({
             fontWeight: 600,
           }}
         >
-          Skill Gap Analyse
+          {t("skillGap")}
         </h3>
       </div>
 
@@ -63,7 +65,7 @@ export default function SkillGapCard({
             className="text-sm font-semibold mb-3"
             style={{ color: "var(--color-text-primary)" }}
           >
-            Deine Stärken
+            {t("strengths")}
           </p>
           <ul className="space-y-3">
             {strengths.map((strength, index) => (
@@ -75,7 +77,7 @@ export default function SkillGapCard({
                   <div className="flex items-center gap-2 min-w-0">
                     <FaCheckCircle
                       size={16}
-                      color="#22C55E"
+                      color="var(--color-success)"
                       className="flex-shrink-0"
                     />
                     <span
@@ -127,7 +129,7 @@ export default function SkillGapCard({
             className="text-sm font-semibold mb-3"
             style={{ color: "var(--color-text-primary)" }}
           >
-            Potenzielle Skill Gaps
+            {t("gaps")}
           </p>
           <ul className="space-y-3">
             {skillGaps.map((gap, index) => (

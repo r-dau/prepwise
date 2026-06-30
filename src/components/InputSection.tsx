@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { LuUpload } from "react-icons/lu";
 
 interface InputSectionProps {
@@ -19,6 +20,8 @@ export default function InputSection({
   onJobDescriptionChange,
   onFileUpload,
 }: InputSectionProps) {
+  const t = useTranslations("input");
+
   return (
     <div className="mb-4 sm:mb-6 w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-4">
@@ -48,7 +51,7 @@ export default function InputSection({
                 fontWeight: 600,
               }}
             >
-              Dein Lebenslauf
+              {t("cv")}
             </label>
           </div>
           <textarea
@@ -58,16 +61,15 @@ export default function InputSection({
               backgroundColor: "var(--color-background)",
               color: "var(--color-text-primary)",
             }}
-            placeholder="Füge hier den Text deines Lebenslaufs ein"
+            placeholder={t("cvPlaceholder")}
             value={cv}
             onChange={(e) => onCvChange(e.target.value)}
           />
-          {/* Upload Button */}
           <div className="mt-4 ml-2">
             <label className="flex items-center gap-2 cursor-pointer w-fit">
               <LuUpload color="var(--color-primary)" />
               <p className="text-xs" style={{ color: "var(--color-primary)" }}>
-                oder Datei hochladen
+                {t("uploadLabel")}
               </p>
               <input
                 type="file"
@@ -81,7 +83,7 @@ export default function InputSection({
                 className="text-xs mt-1 ml-6"
                 style={{ color: "var(--color-success)" }}
               >
-                ✅ {cvFileName} geladen
+                ✅ {cvFileName}
               </p>
             )}
             {uploadError && (
@@ -121,7 +123,7 @@ export default function InputSection({
                 fontWeight: 600,
               }}
             >
-              Stellenanzeige
+              {t("job")}
             </label>
           </div>
           <textarea
@@ -131,7 +133,7 @@ export default function InputSection({
               backgroundColor: "var(--color-background)",
               color: "var(--color-text-primary)",
             }}
-            placeholder="Füge hier den Text der Stellenanzeige ein"
+            placeholder={t("jobPlaceholder")}
             value={jobDescription}
             onChange={(e) => onJobDescriptionChange(e.target.value)}
           />
