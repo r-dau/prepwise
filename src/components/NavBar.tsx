@@ -59,7 +59,7 @@ export default function NavBar() {
               className="font-bold text-sm sm:text-base hidden sm:inline"
               style={{ color: "var(--color-text-primary)" }}
             >
-              PrepWise | Portfolio Projekt
+              Prepwise · Portfolio Projekt
             </span>
           </Link>
 

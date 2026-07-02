@@ -3,6 +3,7 @@ import MatchScoreCard from "@/components/MatchScoreCard";
 import SkillGapCard from "@/components/SkillGapCard";
 import PreparationTipsCard from "@/components/PreparationTipsCard";
 import InterviewQuestionsCard from "@/components/InterviewQuestionsCard";
+import HiddenInsightsCard from "@/components/HiddenInsightsCard";
 import { AnalysisResult } from "@/types/analysis";
 
 interface AnalysisResultsProps {
@@ -57,6 +58,11 @@ export default function AnalysisResults({ result }: AnalysisResultsProps) {
           <div className="lg:col-span-2">
             <PreparationTipsCard tips={result.preparationTips} />
           </div>
+        </div>
+
+        {/* Hidden Insights */}
+        <div className="mb-8 w-full">
+          <HiddenInsightsCard insights={result.hiddenInsights} />
         </div>
 
         {/* Interview Questions */}

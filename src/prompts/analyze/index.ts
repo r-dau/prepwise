@@ -3,8 +3,9 @@
  * Older versions are kept in this folder for reference and to
  * demonstrate iterative prompt engineering.
  */
-import { buildPromptV3 as buildPromptDe } from "./de/v3";
-import { buildPromptV3 as buildPromptEn } from "./en/v3";
+
+import { buildPromptV4 as buildPromptDe } from "./de/v4";
+import { buildPromptV4 as buildPromptEn } from "./en/v4";
 
 export function buildAnalyzePrompt(
   cv: string,

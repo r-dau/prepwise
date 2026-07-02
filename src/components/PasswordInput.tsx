@@ -77,14 +77,21 @@ export default function PasswordInput({
         <button
           onClick={onAnalyze}
           disabled={loading || passwordValid !== true}
-          className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-lg text-white font-semibold transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="group flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-lg text-white font-semibold transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             backgroundColor: "var(--color-primary)",
             fontSize: "16px",
             fontWeight: 600,
           }}
         >
-          <GiNestedHexagons size={20} />
+          <GiNestedHexagons
+            size={20}
+            className={
+              loading
+                ? "animate-spin"
+                : "transition-transform duration-500 group-hover:rotate-180"
+            }
+          />
           {loading ? t("analyzing") : t("analyze")}
         </button>
       </div>

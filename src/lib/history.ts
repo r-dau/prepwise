@@ -10,6 +10,7 @@ export interface HistoryEntry {
     skillGaps: { label: string; detail: string }[];
     preparationTips: { label: string; detail: string }[];
     interviewQuestions: { question: string; category: string; tip: string }[];
+    hiddenInsights: { icon: string; text: string }[];
   };
 }
 
