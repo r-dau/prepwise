@@ -6,6 +6,7 @@ import { TbTargetArrow } from "react-icons/tb";
 import { HiLightBulb } from "react-icons/hi";
 import { BsChatLeftText } from "react-icons/bs";
 import { LuSquareCheckBig } from "react-icons/lu";
+import { IoEyeOutline } from "react-icons/io5";
 
 const skills = [
   "React & Next.js (App Router)",
@@ -41,6 +42,11 @@ export default function AboutPage() {
       icon: <BsChatLeftText size={20} color="var(--color-primary)" />,
       title: t("feature4Title"),
       description: t("feature4Description"),
+    },
+    {
+      icon: <IoEyeOutline size={20} color="var(--color-primary)" />,
+      title: t("feature5Title"),
+      description: t("feature5Description"),
     },
   ];
 
