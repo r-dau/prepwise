@@ -19,7 +19,8 @@ Prepwise is an AI-powered interview preparation tool for software developers. Pa
 - **Skill Gap Analysis** — Side-by-side view of your strengths and missing skills
 - **Preparation Tips** — Personalised recommendations on what to study before the interview
 - **Interview Questions** — Likely questions with tips on how to answer them best
-- **CV Upload** — Upload your CV as PDF or Word (.docx) instead of pasting text
+- **Hidden Insights** — Four AI-generated observations that go beyond the standard analysis, surfacing subtle signals a recruiter might notice
+- **CV Upload with Review** — Upload your CV as PDF or Word (.docx); extracted text opens in an editable preview so you can fix any parsing issues before analysis
 - **Analysis History** — All past analyses saved locally so you can review them anytime
 - **Multi-language Support** — Full German and English UI with automatic browser language detection
 - **Password Protection** — Demo access protected to prevent API abuse
@@ -43,11 +44,11 @@ Prepwise is an AI-powered interview preparation tool for software developers. Pa
 
 ## What I learned building this
 
-- **Prompt Engineering** — Structuring and versioning prompts to return reliable, typed JSON from an LLM
+- **Prompt Engineering** — Iteratively versioning prompts (v1–v5) to improve structure, output constraints, and context-awareness (e.g. injecting the current date so the model can correctly reason about employment timelines)
 - **Next.js App Router** — File-based routing, server components, and API routes
 - **API Route Development** — Building and securing serverless endpoints
 - **Internationalization** — Locale-based routing, automatic language detection, and translation management with next-intl
-- **File Handling** — Extracting text from PDFs and Word documents server-side
+- **File Handling** — Extracting text from PDFs and Word documents server-side, including position-based text sorting to correctly reconstruct multi-column layouts
 - **State Management** — Managing complex UI state across multiple components in React
 - **Responsive Design** — Mobile-first layouts with Tailwind CSS
 - **Git Workflow** — Feature branches, pull requests, and semantic commit messages
@@ -72,7 +73,10 @@ src/
 ├── components/             # Reusable UI components
 ├── i18n/                   # next-intl routing and request config
 ├── lib/                    # Utility functions (history, file parser)
-├── prompts/                # Versioned AI prompts
+├── prompts/
+│   └── analyze/
+│       ├── de/             # Versioned German prompts (v1–v5)
+│       └── en/             # Versioned English prompts
 ├── proxy.ts                # next-intl middleware (formerly middleware.ts)
 └── types/                  # Shared TypeScript interfaces
 

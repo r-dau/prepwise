@@ -81,6 +81,8 @@
     "feature3Description": "Personalised recommendations on what to study or prepare before the interview.",
     "feature4Title": "Interview Questions",
     "feature4Description": "Likely questions you might face in the interview — with tips on how to answer them best.",
+    "feature5Title": "Hidden Insights",
+    "feature5Description": "Four additional AI observations that go beyond the standard analysis, surfacing details a recruiter would notice.",
     "techStackTitle": "Tech Stack & Skills",
     "builtBy": "Built by Richard Dau",
     "bio": "Frontend Developer with a passion for clean, user-friendly products. Currently open to new opportunities, feel free to reach out!"
