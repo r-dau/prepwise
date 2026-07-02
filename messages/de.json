@@ -94,5 +94,16 @@
   },
   "skeleton": {
     "analyzing": "Analyse läuft"
+  },
+  "pdfPreviewModal": {
+    "title": "Extrahierten Text prüfen",
+    "description": "Bitte überprüfe den extrahierten Text und korrigiere ihn bei Bedarf, bevor du fortfährst.",
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "underline": "Unterstrichen",
+    "bulletList": "Aufzählung",
+    "numberedList": "Nummerierte Liste",
+    "cancel": "Abbrechen",
+    "confirm": "Übernehmen"
   }
 }

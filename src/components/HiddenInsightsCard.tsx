@@ -15,19 +15,19 @@ interface HiddenInsightsCardProps {
 const iconConfig: Record<string, { icon: ReactNode; bg: string }> = {
   star: {
     icon: <FaStar size={128} />,
-    bg: "#EDE9FE",
+    bg: "#F5F3FF",
   },
   target: {
     icon: <TbTargetArrow size={128} />,
-    bg: "#FEE2E2",
+    bg: "#FEF2F2",
   },
   chat: {
     icon: <BsChatLeftText size={128} />,
-    bg: "#FEF3C7",
+    bg: "#FFFBEB",
   },
   pen: {
     icon: <FiEdit3 size={128} />,
-    bg: "#DBEAFE",
+    bg: "#EFF6FF",
   },
 };
 

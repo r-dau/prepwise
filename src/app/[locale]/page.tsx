@@ -13,6 +13,7 @@ import PasswordInput from "@/components/PasswordInput";
 import AnalysisSkeleton from "@/components/AnalysisSkeleton";
 import AnalysisResults from "@/components/AnalysisResults";
 import JobTitleModal from "@/components/JobTitleModal";
+import PdfPreviewModal from "@/components/PdfPreviewModal";
 
 export default function Home() {
   const t = useTranslations("errors");
@@ -30,6 +31,8 @@ export default function Home() {
   const [pendingResult, setPendingResult] = useState<AnalysisResult | null>(
     null,
   );
+  const [pendingPdfText, setPendingPdfText] = useState<string | null>(null);
+  const [pendingFileName, setPendingFileName] = useState<string | null>(null);
 
   const handleAnalyze = async () => {
     if (!String(cv).trim() || !String(jobDescription).trim()) {
@@ -111,11 +114,23 @@ export default function Home() {
     try {
       setUploadError(null);
       const text = await extractTextFromFile(file);
-      setCv(String(text));
-      setCvFileName(file.name);
+      setPendingPdfText(String(text));
+      setPendingFileName(file.name);
     } catch (err) {
       setUploadError((err as Error).message);
     }
+  };
+
+  const handlePdfPreviewConfirm = (text: string) => {
+    setCv(text);
+    setCvFileName(pendingFileName);
+    setPendingPdfText(null);
+    setPendingFileName(null);
+  };
+
+  const handlePdfPreviewCancel = () => {
+    setPendingPdfText(null);
+    setPendingFileName(null);
   };
 
   return (
@@ -156,6 +171,13 @@ export default function Home() {
 
       {loading && <AnalysisSkeleton />}
       {pendingResult && <JobTitleModal onConfirm={handleJobTitleConfirm} />}
+      {pendingPdfText !== null && (
+        <PdfPreviewModal
+          initialText={pendingPdfText}
+          onConfirm={handlePdfPreviewConfirm}
+          onCancel={handlePdfPreviewCancel}
+        />
+      )}
       {result && <AnalysisResults result={result} />}
     </div>
   );

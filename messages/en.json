@@ -94,5 +94,16 @@
   },
   "skeleton": {
     "analyzing": "Analysis in progress"
+  },
+  "pdfPreviewModal": {
+    "title": "Review extracted text",
+    "description": "Please review the extracted text and correct it if needed before continuing.",
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "bulletList": "Bullet list",
+    "numberedList": "Numbered list",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   }
 }

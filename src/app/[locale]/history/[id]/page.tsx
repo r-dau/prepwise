@@ -1,8 +1,8 @@
 "use client";
 
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { loadHistory } from "@/lib/history";
+import { loadHistory, HistoryEntry } from "@/lib/history";
 import { useRouter } from "next/navigation";
 
 import MatchScoreCard from "@/components/MatchScoreCard";
@@ -21,10 +21,27 @@ export default function HistoryDetailPage({
   const { id } = use(params);
   const router = useRouter();
   const t = useTranslations("history");
-  const entries = loadHistory();
-  const entry = entries.find((e) => e.id === id);
+  const [entry, setEntry] = useState<HistoryEntry | null | undefined>(
+    undefined,
+  );
 
-  if (!entry) {
+  useEffect(() => {
+    const entries = loadHistory();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is only available client-side, so this is a legitimate external-system read
+    setEntry(entries.find((e) => e.id === id) ?? null);
+  }, [id]);
+
+  // Ladezustand: identisch auf Server und initialem Client-Render
+  if (entry === undefined) {
+    return (
+      <div
+        className="w-full min-h-screen"
+        style={{ backgroundColor: "var(--color-background-alt)" }}
+      />
+    );
+  }
+
+  if (entry === null) {
     return (
       <div
         className="w-full min-h-screen flex items-center justify-center"

@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { LuUpload } from "react-icons/lu";
 
@@ -11,6 +14,26 @@ interface InputSectionProps {
   onFileUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+const MIN_HEIGHT = 128; // entspricht h-32
+const MAX_HEIGHT = MIN_HEIGHT * 3; // 384px
+
+function adjustHeight(el: HTMLTextAreaElement | null, isFocused: boolean) {
+  if (!el) return;
+
+  if (isFocused) {
+    el.style.height = "auto";
+    const newHeight = Math.min(
+      Math.max(el.scrollHeight, MIN_HEIGHT),
+      MAX_HEIGHT,
+    );
+    el.style.height = `${newHeight}px`;
+    el.style.overflowY = el.scrollHeight > MAX_HEIGHT ? "auto" : "hidden";
+  } else {
+    el.style.height = `${MIN_HEIGHT}px`;
+    el.style.overflowY = "auto"; // weiterhin scrollbar, damit der Inhalt einsehbar bleibt
+  }
+}
+
 export default function InputSection({
   cv,
   jobDescription,
@@ -21,6 +44,18 @@ export default function InputSection({
   onFileUpload,
 }: InputSectionProps) {
   const t = useTranslations("input");
+  const cvRef = useRef<HTMLTextAreaElement>(null);
+  const jobRef = useRef<HTMLTextAreaElement>(null);
+  const [cvFocused, setCvFocused] = useState(false);
+  const [jobFocused, setJobFocused] = useState(false);
+
+  useEffect(() => {
+    adjustHeight(cvRef.current, cvFocused);
+  }, [cv, cvFocused]);
+
+  useEffect(() => {
+    adjustHeight(jobRef.current, jobFocused);
+  }, [jobDescription, jobFocused]);
 
   return (
     <div className="mb-4 sm:mb-6 w-full">
@@ -55,8 +90,11 @@ export default function InputSection({
             </label>
           </div>
           <textarea
-            className="w-full h-32 p-4 rounded-lg border resize-none focus:outline-none focus:ring-2"
+            ref={cvRef}
+            className="w-full p-4 rounded-lg border resize-none focus:outline-none focus:ring-2 transition-[height] duration-400"
             style={{
+              height: `${MIN_HEIGHT}px`,
+              maxHeight: `${MAX_HEIGHT}px`,
               borderColor: "var(--color-border)",
               backgroundColor: "var(--color-background)",
               color: "var(--color-text-primary)",
@@ -64,6 +102,8 @@ export default function InputSection({
             placeholder={t("cvPlaceholder")}
             value={cv}
             onChange={(e) => onCvChange(e.target.value)}
+            onFocus={() => setCvFocused(true)}
+            onBlur={() => setCvFocused(false)}
           />
           <div className="mt-4 ml-2">
             <label className="flex items-center gap-2 cursor-pointer w-fit">
@@ -127,8 +167,11 @@ export default function InputSection({
             </label>
           </div>
           <textarea
-            className="w-full h-32 p-4 rounded-lg border resize-none focus:outline-none focus:ring-2"
+            ref={jobRef}
+            className="w-full p-4 rounded-lg border resize-none focus:outline-none focus:ring-2 transition-[height] duration-400"
             style={{
+              height: `${MIN_HEIGHT}px`,
+              maxHeight: `${MAX_HEIGHT}px`,
               borderColor: "var(--color-border)",
               backgroundColor: "var(--color-background)",
               color: "var(--color-text-primary)",
@@ -136,6 +179,8 @@ export default function InputSection({
             placeholder={t("jobPlaceholder")}
             value={jobDescription}
             onChange={(e) => onJobDescriptionChange(e.target.value)}
+            onFocus={() => setJobFocused(true)}
+            onBlur={() => setJobFocused(false)}
           />
         </div>
       </div>
