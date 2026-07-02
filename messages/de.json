@@ -46,7 +46,8 @@
     "showMore": "Mehr anzeigen",
     "showLess": "Weniger",
     "showAllQuestions": "Weitere Fragen anzeigen",
-    "showFewerQuestions": "Weniger anzeigen"
+    "showFewerQuestions": "Weniger anzeigen",
+    "hiddenInsights": "Hidden Insights"
   },
   "history": {
     "title": "Meine Analysen",
@@ -90,5 +91,8 @@
     "placeholder": "z.B. Frontend Developer",
     "confirm": "Bestätigen",
     "defaultTitle": "Unbekannte Stelle"
+  },
+  "skeleton": {
+    "analyzing": "Analyse läuft"
   }
 }

@@ -4,10 +4,13 @@ import { use } from "react";
 import { useTranslations } from "next-intl";
 import { loadHistory } from "@/lib/history";
 import { useRouter } from "next/navigation";
+
 import MatchScoreCard from "@/components/MatchScoreCard";
 import SkillGapCard from "@/components/SkillGapCard";
 import PreparationTipsCard from "@/components/PreparationTipsCard";
 import InterviewQuestionsCard from "@/components/InterviewQuestionsCard";
+import HiddenInsightsCard from "@/components/HiddenInsightsCard";
+
 import { FiArrowLeft } from "react-icons/fi";
 
 export default function HistoryDetailPage({
@@ -108,6 +111,11 @@ export default function HistoryDetailPage({
           <div className="lg:col-span-2">
             <PreparationTipsCard tips={entry.result.preparationTips} />
           </div>
+        </div>
+
+        {/* Hidden Insights */}
+        <div className="mb-8 w-full">
+          <HiddenInsightsCard insights={entry.result.hiddenInsights} />
         </div>
 
         {/* Interview Questions */}
