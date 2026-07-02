@@ -4,15 +4,28 @@
  * demonstrate iterative prompt engineering.
  */
 
-import { buildPromptV4 as buildPromptDe } from "./de/v4";
-import { buildPromptV4 as buildPromptEn } from "./en/v4";
+import { buildPromptV5 as buildPromptDe } from "./de/v5";
+import { buildPromptV5 as buildPromptEn } from "./en/v5";
 
 export function buildAnalyzePrompt(
   cv: string,
   jobDescription: string,
   locale: string = "de",
 ): string {
+  const currentDate =
+    locale === "en"
+      ? new Date().toLocaleDateString("en-US", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        })
+      : new Date().toLocaleDateString("de-DE", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        });
+
   return locale === "en"
-    ? buildPromptEn(cv, jobDescription)
-    : buildPromptDe(cv, jobDescription);
+    ? buildPromptEn(cv, jobDescription, currentDate)
+    : buildPromptDe(cv, jobDescription, currentDate);
 }
