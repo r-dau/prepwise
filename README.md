@@ -1,5 +1,7 @@
 # Prepwise – AI Interview Coach
 
+![CI](https://github.com/r-dau/prepwise/actions/workflows/ci.yml/badge.svg)
+
 > A portfolio project built to demonstrate Next.js, TypeScript, and AI integration skills — and to solve a real problem I faced during my own job search.
 
 **Live Demo:** [prepwise-ten-amber.vercel.app](https://prepwise-ten-amber.vercel.app)  
@@ -29,16 +31,18 @@ Prepwise is an AI-powered interview preparation tool for software developers. Pa
 
 ## Tech Stack
 
-| Layer        | Technology                               |
-| ------------ | ---------------------------------------- |
-| Framework    | Next.js 16 (App Router)                  |
-| Language     | TypeScript                               |
-| Styling      | Tailwind CSS v4                          |
-| AI           | Anthropic Claude API (claude-sonnet-4-6) |
-| i18n         | next-intl                                |
-| File Parsing | unpdf, mammoth                           |
-| Deployment   | Vercel                                   |
-| Storage      | localStorage                             |
+| Layer            | Technology                                |
+| ---------------- | ----------------------------------------- |
+| Framework        | Next.js 16 (App Router)                   |
+| Language         | TypeScript                                |
+| Styling          | Tailwind CSS v4                           |
+| AI               | Anthropic Claude API (claude-sonnet-4-6)  |
+| i18n             | next-intl                                 |
+| File Parsing     | unpdf, mammoth                            |
+| Storage          | localStorage                              |
+| Deployment       | Vercel                                    |
+| Containerization | Docker (multi-stage build)                |
+| CI/CD            | GitHub Actions, GitHub Container Registry |
 
 ---
 
@@ -52,7 +56,9 @@ Prepwise is an AI-powered interview preparation tool for software developers. Pa
 - **State Management** — Managing complex UI state across multiple components in React
 - **Responsive Design** — Mobile-first layouts with Tailwind CSS
 - **Git Workflow** — Feature branches, pull requests, and semantic commit messages
-- **Deployment** — Environment variables, Vercel deployment, and CI/CD via GitHub
+- **Containerization** — Multi-stage Docker builds with Next.js standalone output, non-root containers and runtime-only secrets
+- **CI/CD** — GitHub Actions pipeline that lints, builds and publishes Docker images to GitHub Container Registry
+- **Deployment** — Environment variables and Vercel deployment
 
 ---
 
@@ -91,7 +97,7 @@ messages/
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20.9+ (the Docker image uses Node 22)
 - An [Anthropic API key](https://console.anthropic.com)
 
 ### Installation
@@ -124,9 +130,49 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
+## Run with Docker
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+- An `.env.local` file with `ANTHROPIC_API_KEY` and `DEMO_PASSWORD` (see `.env.example`)
+
+### Build the image
+
+```bash
+docker build -t prepwise .
+```
+
+### Run the container
+
+```bash
+docker run -p 3000:3000 --env-file .env.local prepwise
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+To run it in the background, add `-d` and stop it later with `docker stop <container-id>`.
+
+### Notes
+
+- The image uses a multi-stage build (`node:22-alpine`) with Next.js standalone output and runs as a non-root user.
+- Environment variables are passed at runtime via `--env-file` and are never baked into the image.
+
+---
+
+## CI/CD
+
+A GitHub Actions workflow (`.github/workflows/ci.yml`) runs on every pull request and push to `main`:
+
+- installs dependencies and runs ESLint
+- builds the Docker image
+- on `main`: publishes the image to GitHub Container Registry (`ghcr.io/r-dau/prepwise`)
+
+---
+
 ## Author
 
-**Richard Dau** — Frontend Developer
+**Richard Dau** — Junior DevOps Engineer | Software Developer
 
 - [GitHub](https://github.com/r-dau)
 - [LinkedIn](https://www.linkedin.com/in/richard-dau/)
